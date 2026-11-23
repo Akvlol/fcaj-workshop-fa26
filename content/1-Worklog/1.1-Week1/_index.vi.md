@@ -8,17 +8,18 @@ pre: " <b> 1.1. </b> "
 
 ### Mục tiêu tuần 1:
 
-* Kết nối, làm quen với các thành viên trong kỳ OJT này.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Kết nối, làm quen với các thành viên trong chương trình First Cloud AI Journey (FCAJ).
+* Hiểu các khái niệm cơ bản về Cloud nói chung và các dịch vụ của AWS
 
 ### Các công việc cần triển khai trong tuần này:
 | Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | -                                            | 14/09/2026   | 14/09/2026      |
-| 3   | -                                            | 15/09/2025   | 12/09/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | -                                            | 16/09/2025   | 13/09/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | -                                            | 17/09/2025   | 15/09/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | -                                            | 18/09/2025   | 15/09/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| 2   | - Làm quen với các thành viên trong cùng chương trình <br>
+ - Đọc hướng dẫn và nội quy của chương trình  | 14/09/2026   | 14/09/2026      |
+| 3   | - Tìm hiểu về khái niệm Điện Toán Đám Mây (Cloud Computing) và mô hình chia sẻ trách nhiệm của AWS      | 15/09/2025   | 15/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 4   | - Học về khái niệm và các đặc tính của EC2 (Là môi trường để chạy server, )     | 16/09/2025   | 16/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 5   | -       | 17/09/2025   | 17/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 6   | -       | 18/09/2025   | 18/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 
 
 ### Kết quả đạt được tuần 1:

@@ -19,10 +19,10 @@ pre: " <b> 1.1. </b> "
 | Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
 | 2   | -                                            | 14/09/2026   | 14/09/2026      |
-| 3   | -                                            | 15/09/2025   | 12/09/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | -                                            | 16/09/2025   | 13/09/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | -                                            | 17/09/2025   | 15/09/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | -                                            | 18/09/2025   | 15/09/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| 3   | -                                            | 15/09/2025   | 15/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 4   | -                                            | 16/09/2025   | 16/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 5   | -                                            | 17/09/2025   | 17/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 6   | -                                            | 18/09/2025   | 18/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 
 
 

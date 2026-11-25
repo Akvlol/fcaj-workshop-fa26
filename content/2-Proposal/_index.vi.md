@@ -42,7 +42,7 @@ Hệ thống hướng đến mô hình **Serverless** trên AWS nhằm giảm c�
 
 ### 4. Kiến trúc giải pháp
 
-**[Chèn sơ đồ SecureTable AWS Architecture do tác giả tự vẽ, khớp với hệ thống triển khai]**
+![Architecture](../images/2-Proposal/SecureTable_Architecture.svg)
 
 | Dịch vụ AWS | Vai trò |
 |---|---|

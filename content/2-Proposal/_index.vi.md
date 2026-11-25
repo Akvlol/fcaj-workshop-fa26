@@ -9,6 +9,8 @@ pre: " <b> 2. </b> "
 
 ## Hệ thống quản lý nguyên liệu và gọi món bằng mã QR trên nền tảng AWS Serverless
 
+---
+
 ### 1. Tổng quan dự án
 
 **SecureTable** là hệ thống quản lý nhà hàng quy mô nhỏ, tập trung vào việc gọi món, quản lý nguyên liệu, hóa đơn và theo dõi doanh thu. Khách hàng quét mã QR cố định tại bàn để xem thực đơn và đặt món; nhân viên sử dụng các giao diện riêng để xử lý nghiệp vụ.

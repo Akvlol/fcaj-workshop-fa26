@@ -42,7 +42,7 @@ Hệ thống hướng đến mô hình **Serverless** trên AWS nhằm giảm c�
 
 ### 4. Kiến trúc giải pháp
 
-![Architecture](../images/2-Proposal/SecureTable_Architecture.svg)
+![Architecture](../../images/2-Proposal/SecureTable_Architecture.svg)
 
 | Dịch vụ AWS | Vai trò |
 |---|---|
@@ -72,8 +72,6 @@ Hệ thống hướng đến mô hình **Serverless** trên AWS nhằm giảm c�
 | **Tuần 3–4** | Triển khai frontend S3/CloudFront, Cognito, API Gateway và các Lambda chính. |
 | **Tuần 5–6** | Hoàn thiện Ordering, Kitchen, Inventory, Reception, Finance/Audit và báo cáo. |
 | **Tuần 7–8** | Bổ sung monitoring, bảo mật, backup; kiểm thử và chuẩn bị demo, tài liệu Workshop. |
-
-*Đây là lộ trình tham khảo cho báo cáo; tiến độ thực tế được ghi trong Worklog.*
 
 ### 6. Ngân sách dự kiến
 

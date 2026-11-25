@@ -6,6 +6,9 @@ chapter: false
 ---
 
 # Báo cáo thực tập
+
+---
+
 ### Thông tin sinh viên:
 &emsp; **Họ và tên:** Nguyễn An Khang
 

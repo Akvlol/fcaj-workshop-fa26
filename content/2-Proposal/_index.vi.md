@@ -75,18 +75,38 @@ Hệ thống hướng đến mô hình **Serverless** trên AWS nhằm giảm c�
 
 ### 6. Ngân sách dự kiến
 
-**Kịch bản ước tính:** Nhà hàng 10 bàn, khoảng 20–30 hóa đơn/ngày, 40.000 API request/tháng và khoảng 1 GB dữ liệu DynamoDB; chạy tại Singapore.
+Ngân sách được lập cho **01 tháng vận hành thử nghiệm và demo** tại AWS Region Singapore (`ap-southeast-1`), với mô hình Serverless và lưu lượng thấp. Các số tiền dưới đây là **dự toán kế hoạch**, chưa phải hóa đơn thực tế hoặc kết quả được xác nhận từ AWS Pricing Calculator.
 
-| Nhóm chi phí | Cách kiểm soát |
+#### 6.1. Giả định lập dự toán
+
+| Thông số | Giả định |
 |---|---|
-| **CloudFront, S3** | Dùng frontend tĩnh và theo dõi lưu lượng truyền tải. |
-| **API Gateway, Lambda** | Trả phí theo mức sử dụng; điều chỉnh memory/timeout dựa trên CloudWatch. |
-| **DynamoDB** | Chọn capacity mode phù hợp; hạn chế Scan không cần thiết. |
-| **CloudWatch, SNS, EventBridge** | Giới hạn thời gian lưu logs và tần suất tác vụ. |
-| **WAF, PITR, S3 backup** | Chỉ bật cấu hình cần thiết và giám sát chi phí lưu trữ. |
+| Quy mô nhà hàng | 10 bàn, khoảng 20–30 hóa đơn/ngày |
+| Lưu lượng API | Khoảng 40.000 REST API requests/tháng |
+| Xử lý backend | Khoảng 60.000 Lambda invocations/tháng, chủ yếu 256 MB |
+| Dữ liệu | Khoảng 1 GB DynamoDB |
+| Báo cáo và sao lưu | Báo cáo định kỳ; backup khoảng 13 bảng/tuần |
+| CloudFront & WAF | Giả định dùng **CloudFront Free Plan**, WAF nằm trong quyền lợi gói |
 
-**Ngân sách sơ bộ:** khoảng **10–30 USD/tháng** cho môi trường thử nghiệm lưu lượng thấp. Đây là khoảng dự trù, **chưa phải kết quả chính thức từ AWS Pricing Calculator**; cần đối chiếu cấu hình thực tế, chính sách giá WAF/CloudFront, Free Tier và phí backup trước khi nộp.
+#### 6.2. Bảng dự toán chi phí hàng tháng
 
+| STT | Dịch vụ AWS | Cơ sở ước tính | Chi phí (USD/tháng) |
+|:---:|---|---|---:|
+| 1 | Amazon CloudFront & S3 | Frontend tĩnh; Free Plan, dự phòng lưu trữ/request S3 ngoài gói | **$0.50** |
+| 2 | Amazon API Gateway (REST) | 40.000 request/tháng | **$0.20** |
+| 3 | AWS Lambda | 60.000 invocation/tháng, memory chủ yếu 256 MB | **$0.30** |
+| 4 | Amazon DynamoDB | Khoảng 1 GB dữ liệu và read/write lưu lượng thấp | **$1.00** |
+| 5 | Amazon Cognito | Số lượng tài khoản nhân viên ít, giả định đủ điều kiện miễn phí | **$0.00** |
+| 6 | Amazon CloudWatch | Logs dung lượng thấp và một số standard alarms | **$1.00** |
+| 7 | EventBridge Scheduler & SNS | Lịch báo cáo/backup và email thông báo | **$0.10** |
+| 8 | AWS WAF | Nằm trong CloudFront Free Plan theo giả định | **$0.00** |
+| 9 | DynamoDB PITR, Export & S3 Backup | Dự phòng PITR, xuất dữ liệu hàng tuần và lưu trữ bản sao | **$2.50** |
+| 10 | AWS CloudTrail | Chỉ sử dụng Event History mặc định | **$0.00** |
+| | **Tổng chi phí dịch vụ** | | **$5.60** |
+| | **Dự phòng phát sinh** | | **$2.00** |
+| | **Tổng ngân sách dự kiến** | | **$7.60/tháng** |
+
+**Tổng ngân sách dự kiến trong 12 tháng: $91.20**, nếu duy trì cùng cấu hình và mức sử dụng. Số tiền thực tế có thể thay đổi theo mức sử dụng, dung lượng từng bảng, AWS Free Tier/credits và tính năng bật thêm. Nếu WAF được dùng theo cơ chế tính phí độc lập, cần cộng phí WAF riêng.
 Tham khảo: [AWS Pricing Calculator](https://calculator.aws/).
 
 ### 7. Rủi ro và biện pháp giảm thiểu

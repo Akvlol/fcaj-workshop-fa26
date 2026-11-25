@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="5mz_cUI-O9pkhB5SfSZJ">
-    <mxGraphModel dx="3078" dy="1795" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="4054" dy="2564" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -74,9 +74,9 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="_5_XMSqzbtWGsIvHfNJt-5" edge="1" parent="1" source="QMmoO0e3RH3qXs7AVboJ-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;defaultLabelBackgroundColor=page;labelPadding=0 4;startSize=8;endSize=8;" target="TxjWTcIBAJuDxnu_hbtG-14">
-          <mxGeometry relative="1" as="geometry">
+          <mxGeometry relative="1" x="-0.0439" as="geometry">
             <Array as="points">
-              <mxPoint x="390" y="486" />
+              <mxPoint x="390" y="503.7" />
               <mxPoint x="390" y="648.3" />
             </Array>
           </mxGeometry>
@@ -344,7 +344,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="TxjWTcIBAJuDxnu_hbtG-71" parent="1" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#C925D1;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.dynamodb_stream;labelPerimeter=1;" value="" vertex="1">
-          <mxGeometry height="78" width="78" x="874" y="670.5" as="geometry" />
+          <mxGeometry height="78" width="78" x="917" y="670.5" as="geometry" />
         </mxCell>
         <mxCell id="8Slzf5vSvoIRrXEt9WYf-3" edge="1" parent="1" source="TxjWTcIBAJuDxnu_hbtG-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;labelPadding=0 4;" target="QMmoO0e3RH3qXs7AVboJ-27">
           <mxGeometry relative="1" x="-0.3126" as="geometry">
@@ -360,7 +360,7 @@
           <mxGeometry height="76" width="174" x="1612" y="876" as="geometry" />
         </mxCell>
         <mxCell id="8Slzf5vSvoIRrXEt9WYf-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="DynamoDB Stream&lt;br&gt;(Ingredient stock-out event =&amp;gt; Cascade auto-reject)" vertex="1">
-          <mxGeometry height="30" width="154" x="836" y="761" as="geometry" />
+          <mxGeometry height="30" width="154" x="879" y="761" as="geometry" />
         </mxCell>
         <mxCell id="8Slzf5vSvoIRrXEt9WYf-9" parent="1" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.glacier;labelPerimeter=1;" value="" vertex="1">
           <mxGeometry height="78" width="78" x="1523" y="878" as="geometry" />

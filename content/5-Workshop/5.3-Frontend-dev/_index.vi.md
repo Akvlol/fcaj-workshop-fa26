@@ -1,9 +1,9 @@
 ---
-title : "Frontend Deployment with Amazon S3 & CloudFront"
+title : "Triển khai Frontend với Amazon S3 & CloudFront"
 date : 2024-01-01 
 weight : 2 
 chapter : false
-pre : " <b> 5.2. </b> "
+pre : " <b> 5.3. </b> "
 ---
 
 Trong phần này, chúng ta sẽ triển khai giao diện **SecureTable** lên **Amazon S3** và phân phối website qua **Amazon CloudFront**. Hệ thống sử dụng **một S3 bucket riêng tư** để lưu các trang Guest và Staff, đồng thời sử dụng CloudFront làm điểm truy cập qua HTTPS.
@@ -23,7 +23,7 @@ Trong phần này, chúng ta sẽ triển khai giao diện **SecureTable** lên 
 ## 2. Upload Frontend
 
 1. Mở bucket vừa tạo và chọn **Upload**.
-2. Upload mã nguồn frontend của SecureTable [tại đây](https://console.aws.amazon.com/).
+2. Upload mã nguồn frontend của SecureTable [tại đây](https://github.com/Akvlol/fcaj-workshop-fa26/tree/main/src_code/FrontEnd).
 3. Chọn **Upload** để hoàn tất.
 
 Đặt `index.html` tại **thư mục gốc của bucket** để CloudFront có thể tải trang mặc định.

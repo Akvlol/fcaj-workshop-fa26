@@ -1,12 +1,10 @@
 ---
-title : "Giới thiệu"
+title : "Tổng quan & Kiến trúc hệ thống"
 date : 2024-01-01 
 weight : 1
 chapter : false
 pre : " <b> 5.1. </b> "
 ---
-
-# Tổng quan & Kiến trúc hệ thống
 
 Trước khi triển khai các dịch vụ trên AWS Console, chúng ta cần hiểu cách các thành phần của **SecureTable** kết nối và trao đổi dữ liệu. Hệ thống được xây dựng theo kiến trúc **AWS Serverless**, tập trung vào ba yêu cầu: xử lý đúng nghiệp vụ nhà hàng, bảo vệ dữ liệu và tối ưu chi phí cho quy mô nhỏ.
 
@@ -14,7 +12,7 @@ Trong phần này, chúng ta sẽ phân tích sơ đồ kiến trúc đã sử d
 
 ## 1. Sơ đồ kiến trúc SecureTable
 
-![SecureTable AWS Architecture](../../images/2-Proposal/SecureTable_Architecture.svg)
+![SecureTable AWS Architecture](../../../images/2-Proposal/SecureTable_Architecture.svg)
 
 ### 1.1. Luồng hoạt động của khách hàng (Guest)
 
@@ -52,7 +50,7 @@ Hai luồng này vận hành độc lập với các request gọi món thông t
 - **Amazon CloudFront & HTTPS:** Phân phối website bằng kết nối mã hóa. **AWS WAF** bổ sung khả năng lọc request nếu được bật và cấu hình trên distribution.
 - **DynamoDB Transactions & Backup:** Giúp duy trì tính nhất quán dữ liệu cho các thao tác quan trọng và cung cấp dữ liệu phục vụ phục hồi khi gặp sự cố.
 
-**Giới hạn bảo mật cần ghi nhận:** QR tĩnh có thể bị sao chép. Guest Session chỉ bị ràng buộc với bill đang mở, nên cơ chế hiện tại chưa xác minh được người quét QR có thực sự ở tại bàn hay không.
+**Giới hạn bảo mật:** QR tĩnh có thể bị sao chép. Guest Session chỉ bị ràng buộc với bill đang mở, nên cơ chế hiện tại chưa xác minh được người quét QR có thực sự ở tại bàn hay không.
 
 ---
 
@@ -66,8 +64,8 @@ Hai luồng này vận hành độc lập với các request gọi món thông t
 | **Authentication & Authorization** | Amazon Cognito, AWS IAM, Guest Session Token |
 | **Automation & Notifications** | Amazon EventBridge Scheduler, Amazon SNS |
 | **Backup & Storage** | DynamoDB Export to S3, Amazon S3, S3 Glacier Flexible Retrieval |
-| **Monitoring & Security** | Amazon CloudWatch, AWS CloudTrail; AWS WAF nếu được bật |
-| **Deployment** | AWS Management Console; upload mã nguồn Lambda và frontend |
+| **Monitoring & Security** | Amazon CloudWatch, AWS CloudTrail; AWS WAF |
+| **Deployment** | AWS Management Console |
 
 ---
 
@@ -86,22 +84,19 @@ Trong Proposal, chúng ta đã lập dự toán cho một nhà hàng **10 bàn**
 | 5 | Amazon Cognito | $0.00 |
 | 6 | Amazon CloudWatch | $1.00 |
 | 7 | Amazon EventBridge Scheduler & SNS | $0.10 |
-| 8 | AWS WAF (giả định thuộc CloudFront Free Plan) | $0.00 |
+| 8 | AWS WAF (thuộc CloudFront Free Plan) | $0.00 |
 | 9 | DynamoDB PITR, Export & S3 Backup | $2.50 |
 | 10 | AWS CloudTrail Event History | $0.00 |
 | | **Tổng chi phí dịch vụ** | **$5.60** |
 | | **Dự phòng phát sinh** | **$2.00** |
 | | **Tổng ngân sách dự kiến** | **$7.60/tháng** |
 
-**Lưu ý:** Đây là **dự toán từ Proposal**, không phải chi phí thực tế đã đo hay kết quả xác nhận từ AWS Pricing Calculator. Mức $0 của WAF chỉ phù hợp nếu distribution thực sự sử dụng **CloudFront Free Plan** và tính năng WAF nằm trong phạm vi gói. Phí PITR, export và lưu trữ phụ thuộc vào cấu hình, dung lượng thực tế.
+**Lưu ý:** Mức $0 của WAF chỉ phù hợp nếu distribution thực sự sử dụng **CloudFront Free Plan** và tính năng WAF nằm trong phạm vi gói. Phí Lambda, PITR, export và lưu trữ phụ thuộc vào cấu hình, dung lượng thực tế.
 
-### 3.2. Các biện pháp tối ưu đã áp dụng hoặc cần đối chiếu
+### 3.2. Các biện pháp tối ưu đã áp dụng
 
 - Sử dụng **Serverless** thay vì duy trì máy chủ EC2 hoạt động liên tục.
 - Tổ chức Lambda theo nhóm nghiệp vụ; ví dụ **Reception** gộp quản lý bàn và hóa đơn.
-- Điều chỉnh **Memory** và **Timeout** của Lambda theo số liệu CloudWatch; Reception đã được thử nghiệm ở mức **256 MB**.
-- Phân phối frontend tĩnh bằng CloudFront và S3.
+- Điều chỉnh **Memory** và **Timeout** của Lambda theo số liệu CloudWatch.
+- Phân phối frontend tĩnh bằng CloudFront và S3, không cần web server riêng.
 - Sử dụng S3 Lifecycle để quản lý lưu trữ backup dài hạn.
-- Theo dõi chi phí qua AWS Billing, Cost Explorer và AWS Budgets khi được cấu hình.
-
-**Chi phí thực tế, chênh lệch so với dự toán và kết quả đo hiệu năng sẽ được trình bày tại mục 5.10 – Đánh giá hiệu năng & chi phí thực tế.**

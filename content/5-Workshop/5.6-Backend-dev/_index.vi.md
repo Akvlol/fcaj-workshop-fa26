@@ -1,7 +1,7 @@
 ---
 title : "Xây dựng Backend với AWS Lambda & API Gateway"
 date : 2024-01-01 
-weight : 2
+weight : 6
 chapter : false
 pre : " <b> 5.6. </b> "
 ---

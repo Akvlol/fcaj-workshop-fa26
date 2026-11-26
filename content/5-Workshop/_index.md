@@ -1,25 +1,34 @@
 ---
 title: "Workshop"
-date: 2024-01-01
+date: 2026-20-19
 weight: 5
 chapter: false
 pre: " <b> 5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-# Secure Hybrid Access to S3 using VPC Endpoints
+# Building the SecureTable Restaurant Management System with AWS Serverless
 
 #### Overview
 
-**AWS PrivateLink** provides private connectivity to AWS services from VPCs and your on-premises networks, without exposing your traffic to the Public Internet.
+**AWS Serverless** enables developers to build and deploy applications without managing servers directly. Services such as AWS Lambda, Amazon API Gateway, and Amazon DynamoDB handle requests, store data, and scale according to demand, reducing operational overhead.
 
-In this lab, you will learn how to create, configure, and test VPC endpoints that enable your workloads to reach AWS services without traversing the Public Internet.
+In this workshop, we will learn how to build and deploy **SecureTable**, a restaurant management system on AWS that focuses on ingredient inventory management, QR code ordering, order processing, bill management, and revenue tracking.
 
-You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoint, and an Interface VPC endpoint. These two types of VPC endpoints offer different benefits depending on if you are accessing Amazon S3 from the cloud or your on-premises location
-+ **Gateway** - Create a gateway endpoint to send traffic to Amazon S3 or DynamoDB using private IP addresses.You route traffic from your VPC to the gateway endpoint using route tables.
-+ **Interface** - Create an interface endpoint to send traffic to endpoint services that use a Network Load Balancer to distribute traffic. Traffic destined for the endpoint service is resolved using DNS.
+The system uses a Serverless architecture, combining AWS services to deliver the web interface, process business logic, authenticate users, store data, and monitor system operations.
+
+The main components we will deploy include:
+
+- **Frontend – Amazon S3 & Amazon CloudFront:** Host and deliver web interfaces for customers and staff over HTTPS.
+- **Authentication – Amazon Cognito & AWS IAM:** Authenticate staff, manage permissions, and control access to AWS resources.
+- **Backend – AWS Lambda & Amazon API Gateway:** Build APIs for ordering, table and bill management, kitchen operations, inventory management, and reporting.
+- **Database – Amazon DynamoDB:** Store restaurant data and use DynamoDB Transactions for operations that require data consistency.
+- **Automation – Amazon EventBridge Scheduler & Amazon SNS:** Schedule reports and data backups, and send email notifications.
+- **Monitoring & Security – Amazon CloudWatch, AWS CloudTrail & AWS WAF:** Monitor the system, record AWS activity, and provide additional web protection when WAF is enabled.
+
+By the end of this workshop, we will have a working SecureTable system deployed on AWS: customers can scan QR codes to place orders, staff can manage restaurant operations, and administrators can view operational data.
+
+The workshop also covers testing, monitoring, and resource optimization based on the principles of the **AWS Well-Architected Framework**.
+
 
 #### Content
 

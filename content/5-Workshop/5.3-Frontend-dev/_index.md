@@ -16,7 +16,7 @@ In this section, we will deploy the **SecureTable** frontend to **Amazon S3** an
 4. Keep **Object Ownership: ACLs disabled** and enable **Block all public access**.
 5. Leave the remaining settings at their defaults, then select **Create bucket**.
 
-![S3 Setup](../../../images/5-Workshop/5.3-Frontend-dev/s3-configuration.png)
+![S3 Setup](../../images/5-Workshop/5.3-Frontend-dev/s3-configuration.png)
 
 **Note:** You do not need to enable **S3 Static Website Hosting** or make the bucket public. CloudFront accesses the content through **Origin Access Control (OAC)**.
 
@@ -28,7 +28,7 @@ In this section, we will deploy the **SecureTable** frontend to **Amazon S3** an
 
 Place `index.html` in the **bucket root directory** so CloudFront can load the default page.
 
-![S3 File Upload](../../../images/5-Workshop/5.3-Frontend-dev/s3-upload.png)
+![S3 File Upload](../../images/5-Workshop/5.3-Frontend-dev/s3-upload.png)
 
 **Note:** The paths in the HTML files must match the actual file locations in S3. S3 hosts only static content; staff authentication and order processing will be implemented in later sections.
 
@@ -45,8 +45,8 @@ Place `index.html` in the **bucket root directory** so CloudFront can load the d
    - **Viewer protocol policy:** `Redirect HTTP to HTTPS`
 8. Save the changes and wait until the distribution status becomes **Deployed**.
 
-![CloudFront origin and OAC configuration](../../../images/5-Workshop/5.3-Frontend-dev/OAC.png)
-![CloudFront distribution settings](../../../images/5-Workshop/5.3-Frontend-dev/distribution_settings.png)
+![CloudFront origin and OAC configuration](../../images/5-Workshop/5.3-Frontend-dev/OAC.png)
+![CloudFront distribution settings](../../images/5-Workshop/5.3-Frontend-dev/distribution_settings.png)
 
 CloudFront provides a domain name in the format `dxxxxxxxxxxxxx.cloudfront.net`. This is the address used to access SecureTable in the workshop.
 
@@ -60,8 +60,8 @@ CloudFront provides a domain name in the format `dxxxxxxxxxxxxx.cloudfront.net`.
 1. Open `https://<cloudfront-domain>/` and check the Guest interface.
 2. Open `https://<cloudfront-domain>/staff.html` and check the Staff interface.
 
-![Guest Interface](../../../images/5-Workshop/5.3-Frontend-dev/guest_interface.png)
-![Staff Interface](../../../images/5-Workshop/5.3-Frontend-dev/staff_interface.png)
+![Guest Interface](../../images/5-Workshop/5.3-Frontend-dev/guest_interface.png)
+![Staff Interface](../../images/5-Workshop/5.3-Frontend-dev/staff_interface.png)
 
 **Note:** If the website returns `403 AccessDenied`, check **OAC**, the **S3 bucket policy**, the **Default root object**, and the location of `index.html`. If CloudFront continues serving outdated content after a frontend update, create an **Invalidation** for the paths that need to be refreshed.
 

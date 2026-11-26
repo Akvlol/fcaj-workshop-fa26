@@ -23,8 +23,6 @@ Nếu tài khoản chưa được xác minh, AWS có thể hiển thị thông b
 
 > Your account must be verified before you can add new CloudFront resources. To verify your account, please contact AWS Support (https://console.aws.amazon.com/support/home#/) and include this error message.
 
-<!-- Screenshot: CloudFront account verification error -->
-
 Nếu gặp thông báo này, chúng ta cần liên hệ AWS Support để yêu cầu xác minh tài khoản.
 
 ## 2. Yêu cầu xác minh tài khoản qua AWS Support
@@ -38,8 +36,6 @@ Nếu gặp thông báo này, chúng ta cần liên hệ AWS Support để yêu 
 5. Nhập tiêu đề, ví dụ: `CloudFront Account Verification Request`.
 6. Mô tả vấn đề và đính kèm nguyên văn thông báo lỗi CloudFront.
 7. Chọn **Submit** để gửi yêu cầu hỗ trợ.
-
-<!-- Screenshot: Creating an AWS Support Case -->
 
 Sau khi tiếp nhận yêu cầu, AWS Support sẽ kiểm tra tài khoản và xem xét mở quyền sử dụng CloudFront.
 

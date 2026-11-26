@@ -23,8 +23,6 @@ If your account has not been verified, AWS may display the following error messa
 
 > Your account must be verified before you can add new CloudFront resources. To verify your account, please contact AWS Support (https://console.aws.amazon.com/support/home#/) and include this error message.
 
-<!-- Screenshot: CloudFront account verification error -->
-
 If you encounter this message, contact AWS Support to request account verification.
 
 ## 2. Request Account Verification Through AWS Support
@@ -39,15 +37,11 @@ To request access to CloudFront, follow these steps:
 6. Describe the issue and include the complete CloudFront error message.
 7. Select **Submit** to send the support request.
 
-<!-- Screenshot: Creating an AWS Support Case -->
-
 After receiving the request, AWS Support will review your account and determine whether CloudFront access can be enabled.
 
 Based on our deployment experience, AWS may respond within approximately **one business day** and complete the verification process within **1–2 business days**. Actual processing times may vary depending on the account.
 
 Once AWS Support confirms that the restriction has been removed, return to CloudFront and try creating the distribution again.
-
-<!-- Screenshot: CloudFront Distribution creation after verification -->
 
 **Notes:**
 

@@ -45,25 +45,23 @@ Trong phần này, chúng ta sẽ triển khai giao diện **SecureTable** lên 
    - **Viewer protocol policy:** `Redirect HTTP to HTTPS`
 8. Lưu thay đổi và kiểm tra trạng thái distribution chuyển sang **Deployed**.
 
-<!-- Screenshot: CloudFront origin and OAC configuration -->
-<!-- Screenshot: CloudFront distribution settings -->
+![CloudFront origin and OAC configuration](../../../images/5-Workshop/5.3-Frontend-dev/OAC.png)
+![CloudFront distribution settings](../../../images/5-Workshop/5.3-Frontend-dev/distribution_settings.png)
 
 CloudFront cấp một domain có dạng `dxxxxxxxxxxxxx.cloudfront.net`. Đây là địa chỉ dùng để truy cập SecureTable trong Workshop.
 
 **Lưu ý:**
 - **AWS Free Plan 6 tháng** và **CloudFront Free Plan** là hai chương trình khác nhau. Kiểm tra distribution đang sử dụng đúng CloudFront Free Plan để bảo đảm các tính năng nằm trong phạm vi miễn phí.
-- **AWS WAF** đã được bật cho CloudFront; phần cấu hình và giám sát WAF sẽ được trình bày tại **5.8 – Security Hardening & System Monitoring**.
-- Nếu không tạo được distribution do yêu cầu xác minh tài khoản, thực hiện theo **5.2 – Prerequisites**.
+- **AWS WAF** đã được bật cho CloudFront; phần cấu hình và giám sát WAF sẽ được trình bày tại [5.8 – Security Hardening & System Monitoring](5.8-Security/).
+- Nếu không tạo được distribution do yêu cầu xác minh tài khoản, thực hiện theo [5.2 – Prerequisites](5.2-Prerequisite).
 
 ## 4. Kiểm tra Website
 
 1. Truy cập `https://<cloudfront-domain>/` và kiểm tra giao diện Guest.
 2. Truy cập `https://<cloudfront-domain>/staff.html` và kiểm tra giao diện Staff.
-3. Thử truy cập bằng `http://` để xác nhận CloudFront chuyển hướng sang HTTPS.
-4. Kiểm tra trong **S3 → Permissions** rằng bucket vẫn chặn truy cập công khai.
 
-<!-- Screenshot: SecureTable Guest interface through CloudFront -->
-<!-- Screenshot: SecureTable Staff interface through CloudFront -->
+![Guest Interface](../../../images/5-Workshop/5.3-Frontend-dev/guest_interface.png)
+![Staff Interface](../../../images/5-Workshop/5.3-Frontend-dev/staff_interface.png)
 
 **Lưu ý:** Nếu website trả về `403 AccessDenied`, kiểm tra **OAC**, **S3 bucket policy**, **Default root object** và vị trí của `index.html`. Khi cập nhật frontend mà CloudFront vẫn hiển thị nội dung cũ, tạo **Invalidation** cho các đường dẫn cần làm mới.
 

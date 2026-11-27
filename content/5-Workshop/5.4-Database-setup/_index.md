@@ -19,7 +19,7 @@ We will create the `SecureTable-Tables` table:
 5. Keep **Default settings** (**Capacity mode** defaults to **On-demand**).
 6. Select **Create table** and wait until the table status changes to **Active**.
 
-![DynamoDB Table Setup](../../../images/5-Workshop/5.4-Database-setup/create-table.png)
+![DynamoDB Table Setup](../../images/5-Workshop/5.4-Database-setup/create-table.png)
 
 **Note:** The `Partition key` and `Sort key` must match the **names and data types** used by the Lambda functions. Do not arbitrarily change `table_id` to `id`, as the backend would then be unable to retrieve the data.
 

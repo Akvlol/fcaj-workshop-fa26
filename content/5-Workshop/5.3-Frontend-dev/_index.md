@@ -1,4 +1,3 @@
-
 ---
 title : "Frontend Deployment with Amazon S3 & CloudFront"
 date : 2024-01-01
@@ -53,15 +52,3 @@ CloudFront provides a domain name in the format `dxxxxxxxxxxxxx.cloudfront.net`.
 - The **six-month AWS Free Plan** and the **CloudFront Free Plan** are separate programs. Verify that the distribution is using the CloudFront Free Plan to keep the included features within the free usage limits.
 - **AWS WAF** has been enabled for CloudFront. Its configuration and monitoring will be covered in [5.8 – Security Hardening & System Monitoring](5.8-Security/).
 - If you cannot create a distribution because your account requires verification, follow [5.2 – Prerequisites](5.2-Prerequisite).
-
-## 4. Verify the Website
-
-1. Open `https://<cloudfront-domain>/` and check the Guest interface.
-2. Open `https://<cloudfront-domain>/staff.html` and check the Staff interface.
-
-![Guest Interface](../../images/5-Workshop/5.3-Frontend-dev/guest_interface.png)
-![Staff Interface](../../images/5-Workshop/5.3-Frontend-dev/staff_interface.png)
-
-**Note:** If the website returns `403 AccessDenied`, check **OAC**, the **S3 bucket policy**, the **Default root object**, and the location of `index.html`. If CloudFront continues to serve outdated content after a frontend update, create an **Invalidation** for the paths that need to be refreshed.
-
-At this stage, the **frontend is being delivered through CloudFront**. Cognito login and routing `/v1/*` requests to API Gateway will be configured in the corresponding sections.

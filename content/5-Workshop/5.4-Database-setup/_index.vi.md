@@ -28,6 +28,7 @@ Chúng ta sẽ tạo bảng `SecureTable-Tables`:
 
 Thực hiện tương tự bước trên cho các bảng của SecureTable. Dưới đây là những khóa chính được xác định từ cấu trúc dữ liệu và mã nguồn triển khai:
 
+
 | DynamoDB Table | Partition key | Sort key |
 |---|---|---|
 | `SecureTable-Tables` | `table_id` | — |
@@ -46,15 +47,22 @@ Thực hiện tương tự bước trên cho các bảng của SecureTable. Dư�
 | `SecureTable-GuestSessions` | `session_hash` | — |
 | `SecureTable-Idempotency` | `scope` | `key` |
 | `SecureTable-PendingByIngredient` | `ingredient_id` | `item_id` |
+| `SecureTable-NotificationOutbox` | `event_id` | — |
+| `SecureTable-ReportDispatch` | `report_key` | — |
 
 Tất cả các khóa trên sử dụng kiểu **String**. Hệ thống còn sử dụng `SecureTable-ReportDispatch` để ghi nhận trạng thái gửi báo cáo và `SecureTable-NotificationOutbox` cho các sự kiện thông báo. Hai bảng phụ này phải được tạo theo khóa mà mã nguồn Lambda tương ứng sử dụng trước khi kích hoạt chức năng đó.
 
 ![DynamoDB Tables](../../../images/5-Workshop/5.4-Database-setup/table-list.png)
 
+
 **Lưu ý:**
-- **13 bảng đầu tiên** là phạm vi sao lưu định kỳ của SecureTable; các bảng phiên truy cập và trạng thái xử lý tạm thời không nằm trong danh sách backup này.
-- Chỉ tạo **Global Secondary Index (GSI)** khi truy vấn của backend yêu cầu. Chọn bảng → **Indexes → Create index**, khai báo khóa và đợi index ở trạng thái **Active** trước khi sử dụng.
-- Phiên bản Reception hiện tại đọc `OrderItems` bằng **Scan**, nên không cần tự thêm `bill_id` GSI chỉ để làm theo một thiết kế cũ.
+
+- SecureTable sử dụng tổng cộng **18 DynamoDB Tables**, được cấu hình ở chế độ **On-demand**.
+- Trong đó, **13 bảng nghiệp vụ** thuộc phạm vi sao lưu định kỳ.
+- Bảng `SecureTable-OrderItems` sử dụng **2 Global Secondary Indexes (GSI)** để hỗ trợ truy vấn.
+- Khi tạo GSI, truy cập **DynamoDB → Tables → SecureTable-OrderItems → Indexes → Create index** và cấu hình theo các khóa truy vấn của hệ thống.
+- Đợi trạng thái của GSI chuyển sang **Active** trước khi sử dụng.
+
 
 ## 3. Bật Time to Live (TTL)
 
@@ -108,6 +116,6 @@ SecureTable sử dụng TTL để tự động dọn dẹp dữ liệu tạm th�
 3. Kiểm tra **Capacity mode** của các bảng là **On-demand**.
 4. Xác nhận **TTL** đã bật cho các bảng phiên và chống gửi request trùng.
 
-**Lưu ý:** **Point-in-Time Recovery (PITR)** cần được bật cho 13 bảng thuộc phạm vi xuất dữ liệu sang S3. Chúng ta sẽ cấu hình và kiểm tra PITR tại **5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu**. PITR có chi phí riêng, kể cả khi chưa chạy tác vụ export.
+**Lưu ý:** **Point-in-Time Recovery (PITR)** cần được bật cho 13 bảng thuộc phạm vi xuất dữ liệu sang S3. Chúng ta sẽ cấu hình và kiểm tra PITR tại [5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu](5.7-Automation). PITR có chi phí riêng, kể cả khi chưa chạy tác vụ export.
 
 Sau khi hoàn thành, cơ sở dữ liệu đã sẵn sàng để kết nối với Lambda trong [5.6 – Xây dựng Backend với AWS Lambda & API Gateway](5.6-Backend-dev).

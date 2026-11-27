@@ -132,7 +132,7 @@ Sau khi thay placeholder, ARN phải có đúng Account ID thực tế. **IAM kh
 6. Chọn **Next**, đặt tên policy, ví dụ `SecureTable-GuestServices-Policy`.
 7. Chọn **Create policy** và kiểm tra policy mới xuất hiện trong phần quyền của role.
 
-![Lambda IAM Execution Role](../../../../images/5-Workshop/5.6-Backend/5.6.2-lambda/lambda-iam.png)
+![Lambda IAM Execution Role](../../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/lambda-iam.png)
 
 **Lưu ý:** Chỉ gắn file JSON của function tương ứng vào Execution Role của function đó. **Không** gắn `AmazonDynamoDBFullAccess` cho tất cả Lambda. Policy `AWSLambdaDynamoDBExecutionRole` chủ yếu phục vụ việc đọc **DynamoDB Streams**, không thay thế các quyền đọc/ghi bảng trong file JSON của SecureTable.
 
@@ -143,7 +143,7 @@ Sau khi thay placeholder, ARN phải có đúng Account ID thực tế. **IAM kh
 3. Nếu mã nguồn yêu cầu biến môi trường, mở **Configuration → Environment variables → Edit** và nhập các giá trị tương ứng.
 4. Xác nhận **Runtime** là `Python 3.15` và **Handler** là `lambda_function.lambda_handler`.
 
-![Lambda General Configuration](../../../../images/5-Workshop/5.6-Backend/5.6.2-lambda/lambda-general.png)
+![Lambda General Configuration](../../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/lambda-general.png)
 
 Bảng sau là **cấu hình khởi đầu tham khảo** cho môi trường demo; cần kiểm tra lại khi triển khai thực tế:
 
@@ -185,6 +185,6 @@ Hai function **`SecureTable-Report`** và **`SecureTable-Backup`** không cần 
 4. Kiểm tra các placeholder trong JSON đã được thay đầy đủ, đặc biệt là Account ID, tên S3 bucket và SNS Topic.
 5. Có thể sử dụng **Test** với event phù hợp để kiểm tra lỗi cú pháp, import hoặc cấu hình, sau đó xem **Monitor → View CloudWatch logs** khi function được gọi.
 
-![List of SecureTable Lambda Functions](../../../../images/5-Workshop/5.6-Backend/5.6.2-lambda/lambda-list.png)
+![List of SecureTable Lambda Functions](../../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/lambda-list.png)
 
 Sau khi hoàn thành, **8 Lambda của SecureTable** đã được triển khai từ các file ZIP trên GitHub, sử dụng **Python 3.15** và **Execution Role mặc định với IAM Policy riêng theo chức năng**, sẵn sàng kết nối với API Gateway hoặc các tác vụ tự động.

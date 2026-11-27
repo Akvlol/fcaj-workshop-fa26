@@ -35,18 +35,16 @@ Trong phần này, chúng ta sẽ triển khai giao diện **SecureTable** lên 
 ## 3. Tạo CloudFront Distribution
 
 1. Mở **Amazon CloudFront** và chọn **Create distribution**.
-2. Chọn **Amazon S3** làm origin, sau đó chọn bucket frontend vừa tạo.
-3. Sử dụng **Origin Access Control (OAC)** với chế độ **Sign requests (recommended)** để CloudFront có quyền đọc bucket riêng tư.
-4. Giữ **Origin path** trống vì các tệp frontend được đặt tại thư mục gốc.
-5. Chọn **CloudFront Free Plan** cho distribution và bật **AWS WAF** trong phạm vi tính năng của gói.
+2. Chọn **CloudFront Free Plan** cho distribution và bật **AWS WAF** trong phạm vi tính năng của gói.
+3. Chọn **Amazon S3** làm origin, sau đó chọn bucket frontend vừa tạo.
+4. Sử dụng **Origin Access Control (OAC)** với chế độ **Sign requests (recommended)** để CloudFront có quyền đọc bucket riêng tư.
+5. Giữ **Origin path** trống vì các tệp frontend được đặt tại thư mục gốc. 
 6. Tạo distribution và kiểm tra **S3 bucket policy** đã cấp quyền đọc cho CloudFront. Nếu Console không tự cập nhật policy, áp dụng bucket policy do CloudFront cung cấp.
-7. Sau khi tạo, cấu hình:
-   - **Default root object:** `index.html`
-   - **Viewer protocol policy:** `Redirect HTTP to HTTPS`
+7. Sau khi tạo, cấu hình **Default root object:** `index.html`
 8. Lưu thay đổi và kiểm tra trạng thái distribution chuyển sang **Deployed**.
 
-![CloudFront origin and OAC configuration](../../../images/5-Workshop/5.3-Frontend-dev/OAC.png)
-![CloudFront distribution settings](../../../images/5-Workshop/5.3-Frontend-dev/distribution_settings.png)
+![CloudFront S3](../../../images/5-Workshop/5.3-Frontend-dev/cfs3.png)
+![CloudFront default root](../../../images/5-Workshop/5.3-Frontend-dev/default-root.png)
 
 CloudFront cấp một domain có dạng `dxxxxxxxxxxxxx.cloudfront.net`. Đây là địa chỉ dùng để truy cập SecureTable trong Workshop.
 

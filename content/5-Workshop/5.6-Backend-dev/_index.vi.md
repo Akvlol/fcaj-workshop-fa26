@@ -43,5 +43,3 @@ Chúng ta sẽ thực hiện theo ba phần:
 3. [5.6.3 – Tích hợp Lambda với Amazon API Gateway](../5.6-Backend-dev/5.6.3-APIgw): Tạo REST API, gắn Lambda proxy integration, bật Cognito Authorizer và cấu hình CloudFront để frontend gọi API.
 
 **Lưu ý:** Các bảng DynamoDB phải được tạo đúng tên và khóa tại mục 5.4 trước khi kiểm thử Lambda. Ngoài ra, frontend sẽ chỉ gọi được API khi API Gateway đã được deploy và behavior `/v1/*` của CloudFront được cấu hình đúng.
-
-Sau khi hoàn thành mục [5.6](../5.6-Backend-dev), SecureTable có thể thực hiện luồng **Customer đặt món → Kitchen xử lý → Reception quản lý bill → Inventory/Admin theo dõi dữ liệu** qua website.

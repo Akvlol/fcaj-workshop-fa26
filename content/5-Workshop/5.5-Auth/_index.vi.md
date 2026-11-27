@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 5.5. </b> "
 ---
 
-Trong phần này, chúng ta sẽ cấu hình **Amazon Cognito User Pool** để xác thực nhân viên và phân quyền theo từng bộ phận của **SecureTable**. Đồng thời, **AWS IAM** được sử dụng để kiểm soát quyền truy cập các dịch vụ AWS của Lambda.
+Trong phần này, chúng ta sẽ cấu hình **Amazon Cognito User Pool** để xác thực nhân viên và phân quyền theo từng bộ phận của **SecureTable**
 
 **Lưu ý:** Khách hàng (Guest) **không sử dụng Cognito**. Guest được cấp Session Token qua API khi bàn có bill đang mở.
 

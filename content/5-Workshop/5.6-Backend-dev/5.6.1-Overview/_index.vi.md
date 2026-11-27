@@ -1,47 +1,123 @@
 ---
-title : "Xây dựng Backend với AWS Lambda & API Gateway"
+title : "Tổng quan Backend & Thiết kế API"
 date : 2024-01-01
-weight : 6
+weight : 1
 chapter : false
-pre : " <b> 5.6. </b> "
+pre : " <b> 5.6.1. </b> "
 ---
 
-Hệ thống sử dụng kiến trúc **Serverless**: không cần quản lý EC2 hay web server chạy liên tục. Các Lambda được gọi khi có request API hoặc sự kiện theo lịch.
+## 1. Luồng xử lý một API request
 
-## 1. Kiến trúc xử lý Backend
+1. Trình duyệt gửi request HTTPS đến `https://<cloudfront-domain>/v1/...`.
+2. CloudFront chuyển request `/v1/*` đến API Gateway.
+3. API Gateway tìm **Resource + Method** tương ứng; với Staff API, **Cognito User Pool Authorizer** kiểm tra token.
+4. API Gateway gọi Lambda bằng **Lambda proxy integration**.
+5. Lambda xác minh dữ liệu và quyền nghiệp vụ, truy cập DynamoDB, rồi trả về JSON cùng HTTP status code.
 
-Có hai nhóm luồng chính:
+## 2. Thiết kế Guest API
 
-1. **Guest:** Customer quét QR → CloudFront → API Gateway → Lambda GuestServices/Ordering → DynamoDB. Guest không đăng nhập Cognito; Lambda kiểm tra **Guest Session Token** và trạng thái bill.
-2. **Staff:** Nhân viên đăng nhập bằng Cognito → CloudFront → API Gateway (**Cognito Authorizer**) → Lambda tương ứng → DynamoDB. Ngoài xác thực, Lambda còn kiểm tra nhóm `RECEPTION`, `KITCHEN`, `INVENTORY` hoặc `ADMIN`.
+Guest không dùng Cognito. Endpoint tạo phiên được truy cập khi chưa có token; các endpoint Guest còn lại yêu cầu token do backend cấp.
 
-Các request từ frontend sử dụng đường dẫn `/v1/*`. Trong CloudFront, đường dẫn này được chuyển tới **API Gateway REST API** thay vì S3.
+| Method | Endpoint | Lambda | Chức năng |
+|---|---|---|---|
+| `POST` | `/v1/guest/sessions` | `SecureTable-GuestServices` | Kiểm tra bàn/bill và cấp Guest Session |
+| `GET` | `/v1/guest/menu` | `SecureTable-GuestServices` | Trả danh sách món có thể đặt |
+| `POST` | `/v1/guest/orders` | `SecureTable-Ordering` | Đặt món và giữ nguyên liệu |
+| `GET` | `/v1/guest/orders` | `SecureTable-Ordering` | Xem món và trạng thái trong bill hiện tại |
 
-## 2. Các Lambda của SecureTable
+**Ví dụ tạo phiên cho bàn `T01`:**
 
-Sau khi gộp các function có cùng nghiệp vụ, SecureTable tổ chức backend thành **8 Lambda**:
+```http
+POST /v1/guest/sessions
+Content-Type: application/json
+```
 
-| Lambda | Nhiệm vụ chính | Cách kích hoạt |
+```json
+{
+  "table_id": "T01"
+}
+```
+
+Lambda kiểm tra bàn `OCCUPIED` và bill `OPEN`. Nếu hợp lệ, API trả `guest_session_token`. Khi gọi API đặt món, frontend gửi token trong header:
+
+```http
+Authorization: Bearer <guest_session_token>
+Content-Type: application/json
+Idempotency-Key: <unique-key-for-this-order>
+```
+
+Ví dụ body đặt món (mã món phải tồn tại trong `SecureTable-MenuItems`):
+
+```json
+{
+  "items": [
+    { "dish_id": "D_BUN_BO_HUE", "qty": 2 }
+  ]
+}
+```
+
+Sau khi gửi, khách có thể gọi `GET /v1/guest/orders` để xem món `ORDERED`, `COMPLETED` hoặc `REJECTED`, kể cả khi tải lại trang. **Khách không có endpoint hủy món**.
+
+**Lưu ý:** `bill_id` được Lambda xác định từ Guest Session, không lấy từ tham số do người dùng nhập. Guest chỉ đọc các món thuộc bill đang mở gắn với session đó.
+
+## 3. Thiết kế Staff API
+
+Nhân viên đăng nhập qua Cognito trước khi gọi các endpoint `/v1/staff/*`.
+
+| Method | Endpoint | Lambda | Nhóm quyền |
+|---|---|---|---|
+| `GET` | `/v1/staff/tables` | `SecureTable-Reception` | `RECEPTION`, `ADMIN` |
+| `POST` | `/v1/staff/bills` | `SecureTable-Reception` | `RECEPTION`, `ADMIN` |
+| `GET` | `/v1/staff/bills` | `SecureTable-Reception` | `RECEPTION`, `ADMIN` |
+| `GET` | `/v1/staff/bills/{billId}` | `SecureTable-Reception` | `RECEPTION`, `ADMIN` |
+| `GET` | `/v1/staff/bills/{billId}/receipt` | `SecureTable-Reception` | `RECEPTION`, `ADMIN` |
+| `POST` | `/v1/staff/bills/{billId}/close` | `SecureTable-Reception` | `RECEPTION`, `ADMIN` |
+| `GET` | `/v1/staff/kitchen/queue` | `SecureTable-Kitchen` | `KITCHEN`, `ADMIN` |
+| `POST` | `/v1/staff/kitchen/items/{itemId}/complete` | `SecureTable-Kitchen` | `KITCHEN`, `ADMIN` |
+| `POST` | `/v1/staff/kitchen/items/{itemId}/reject` | `SecureTable-Kitchen` | `KITCHEN`, `ADMIN` |
+| `GET`, `POST` | `/v1/staff/inventory/receipts` | `SecureTable-Inventory` | `INVENTORY`, `ADMIN` |
+| `GET`, `POST` | `/v1/staff/inventory/receipts/{receiptId}/corrections` | `SecureTable-Inventory` | `INVENTORY`, `ADMIN` |
+| `GET` | `/v1/staff/finance/daily/{date}` | `SecureTable-AdminDashboard` | `ADMIN` |
+| `GET` | `/v1/staff/finance/summary` | `SecureTable-AdminDashboard` | `ADMIN` |
+| `GET` | `/v1/staff/finance/weekly` | `SecureTable-AdminDashboard` | `ADMIN` |
+| `GET` | `/v1/staff/audit-logs` | `SecureTable-AdminDashboard` | `ADMIN` |
+
+**Lưu ý:** Bảng thể hiện những route chính trong mã nguồn/tài liệu triển khai SecureTable. Nếu phiên bản `Inventory` của m có thêm route đọc nguyên liệu, xem chi tiết phiếu nhập hoặc điều chỉnh riêng, hãy tạo thêm đúng các Method/Resource mà frontend và Lambda phiên bản đó đang dùng; không tạo route chỉ vì nó có trong bản API Spec đề xuất ban đầu.
+
+**Ví dụ mở bill:**
+
+```http
+POST /v1/staff/bills
+Authorization: Bearer <staff_id_token>
+Content-Type: application/json
+Idempotency-Key: <unique-key-for-this-open-bill>
+```
+
+```json
+{
+  "table_id": "T01",
+  "guest_count": 2
+}
+```
+
+API Gateway xác minh ID Token từ Cognito, sau đó Lambda Reception kiểm tra nhóm quyền, `guest_count` và `Idempotency-Key`, cùng điều kiện bàn chưa có bill mở. Nếu bàn đang được sử dụng, backend có thể trả về **`409 Conflict`**.
+
+## 4. Phân biệt xác thực Guest và Staff
+
+| Nội dung | Guest | Staff |
 |---|---|---|
-| `SecureTable-GuestServices` | Cấp Guest Session, trả thực đơn | API Gateway – Guest |
-| `SecureTable-Ordering` | Nhận đơn, giữ nguyên liệu, xem lại món đã đặt | API Gateway – Guest |
-| `SecureTable-Reception` | Xem bàn, mở/đóng bill, xem hóa đơn | API Gateway – Staff |
-| `SecureTable-Kitchen` | Xem hàng đợi, hoàn tất/từ chối món | API Gateway – Staff |
-| `SecureTable-Inventory` | Nhập kho, xem phiếu nhập, điều chỉnh tồn | API Gateway – Staff |
-| `SecureTable-AdminDashboard` | Tổng hợp tài chính và truy vấn Audit Logs | API Gateway – Staff |
-| `SecureTable-Report` | Tạo và gửi báo cáo định kỳ | EventBridge Scheduler |
-| `SecureTable-Backup` | Khởi tạo sao lưu DynamoDB sang S3 | EventBridge Scheduler |
+| Đăng nhập Cognito | Không | Có |
+| Token | Guest Session Token | Cognito ID Token |
+| Kiểm tra tại API Gateway | `Authorization: NONE` | Cognito User Pool Authorizer |
+| Kiểm tra tại Lambda | Session còn hạn, đúng bàn và bill mở | `sub`, `cognito:groups` và quyền nghiệp vụ |
+| Phạm vi | Menu, đặt món, xem món của bill | Theo nhóm nhân viên |
 
-**Lưu ý:** `Report` và `Backup` không cần API công khai. Việc tạo lịch EventBridge, cấu hình SNS và S3 backup được thực hiện ở [5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu](../5.7-Automation).
+Với REST API và Cognito User Pool Authorizer của SecureTable, các Method Staff sử dụng **ID Token** và để trống **Authorization Scopes**. Nếu cấu hình scopes bắt buộc, API Gateway sẽ yêu cầu access token có scopes tương ứng — không đúng với cách frontend hiện tại đang sử dụng.
 
-## 3. Thứ tự triển khai
+## 5. Quy ước dữ liệu và lỗi
 
-Chúng ta sẽ thực hiện theo ba phần:
-
-1. [5.6.1 – Tổng quan Backend & Thiết kế API](../5.6-Backend-dev/5.6.1-Overview): Xác định những endpoint mà Guest và Staff cần, phương thức HTTP và Lambda xử lý.
-2. [5.6.2 – Tạo và Cấu hình các AWS Lambda Functions](../5.6-Backend-dev/5.6.2-Lambda): Tạo function, upload mã nguồn, cấu hình runtime và cấp IAM Execution Role.
-3. [5.6.3 – Tích hợp Lambda với Amazon API Gateway](../5.6-Backend-dev/5.6.3-APIgw): Tạo REST API, gắn Lambda proxy integration, bật Cognito Authorizer và cấu hình CloudFront để frontend gọi API.
-
-**Lưu ý:** Các bảng DynamoDB phải được tạo đúng tên và khóa tại mục 5.4 trước khi kiểm thử Lambda. Ngoài ra, frontend sẽ chỉ gọi được API khi API Gateway đã được deploy và behavior `/v1/*` của CloudFront được cấu hình đúng.
-
-Sau khi hoàn thành mục [5.6](../5.6-Backend-dev), SecureTable có thể thực hiện luồng **Customer đặt món → Kitchen xử lý → Reception quản lý bill → Inventory/Admin theo dõi dữ liệu** qua website.
+- **Request/Response:** JSON, `Content-Type: application/json`.
+- **Mã trạng thái:** `200` thành công khi đọc/cập nhật, `201` khi tạo, `400` dữ liệu sai, `401` chưa xác thực/token lỗi, `403` không đủ quyền, `409` xung đột trạng thái, `500` lỗi phía server.
+- **Đơn hàng:** Dùng `Idempotency-Key` cho `POST /guest/orders` để tránh tạo trùng khi khách bấm lại do lỗi mạng.
+- **DynamoDB:** Các bước ảnh hưởng nhiều bảng sử dụng transaction/conditional write nhằm tránh trừ kho hoặc cộng tiền hai lần.
+- **Bảo mật:** Không tin `role`, `bill_id` hoặc `table_id` tự khai báo trong các request cần kiểm tra quyền; không ghi token vào CloudWatch Logs.

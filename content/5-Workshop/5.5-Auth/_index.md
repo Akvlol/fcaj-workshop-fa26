@@ -6,7 +6,7 @@ chapter : false
 pre : " <b> 5.5. </b> "
 ---
 
-In this section, we will configure an **Amazon Cognito User Pool** to authenticate staff members and assign permissions based on their roles in **SecureTable**. **AWS IAM** is also used to control Lambda functions' access to AWS services.
+In this section, we will configure an **Amazon Cognito User Pool** to authenticate staff members and assign permissions based on their roles in **SecureTable**.
 
 **Note:** Customers (Guests) **do not use Cognito**. Guests receive a Session Token through an API when their table has an open bill.
 

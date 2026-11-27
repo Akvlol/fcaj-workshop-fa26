@@ -77,7 +77,7 @@ Chúng ta sẽ sử dụng `SecureTable-GuestServices` làm ví dụ. Các Lambd
 4. Chọn **Create function**.
 5. Đợi AWS tạo function và mở trang chi tiết của Lambda.
 
-![Create AWS Lambda](../../../../images/5-Workshop/5.6-Backend/create-lambda.png)
+![Create AWS Lambda](../../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/create-lambda.png)
 
 **Lưu ý:** Khi chọn **Create a new role with basic Lambda permissions**, AWS tự tạo **IAM Execution Role** và gắn quyền ghi logs lên **Amazon CloudWatch** (thông qua `AWSLambdaBasicExecutionRole`). Vì vậy, **không cần tạo IAM Role thủ công trước khi tạo Lambda**. Role này chưa có quyền truy cập DynamoDB, S3 hoặc SNS; chúng ta sẽ bổ sung quyền ở bước 4.
 

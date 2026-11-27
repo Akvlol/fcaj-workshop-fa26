@@ -55,8 +55,6 @@ Trong mỗi thư mục:
 
 Có thể tải toàn bộ repository bằng **Code → Download ZIP** trên GitHub, sau đó giải nén repository để tìm các file bên trong thư mục `Lambda`. **Không upload file ZIP của toàn bộ repository lên Lambda**; chỉ sử dụng file `SecureTable-<FunctionName>.zip` tương ứng.
 
-![SecureTable Lambda Source Code](../../../../images/5-Workshop/5.6-Backend/lambda-source.png)
-
 **Lưu ý:** Các file IAM Policy trong GitHub là **mẫu cấu hình**. Trước khi sử dụng, cần thay `<YOUR_ACCOUNT_ID>` bằng AWS Account ID của tài khoản đang triển khai. Các placeholder khác như `<YOUR_BACKUP_BUCKET>` cũng phải được thay bằng giá trị thực tế nếu xuất hiện trong policy.
 
 ## 2. Tạo AWS Lambda Function
@@ -95,7 +93,7 @@ Chúng ta sẽ sử dụng `SecureTable-GuestServices` làm ví dụ. Các Lambd
 
 6. Nếu Handler chưa đúng, chọn **Edit**, nhập giá trị trên và lưu lại.
 
-![Upload Lambda ZIP](../../../../images/5-Workshop/5.6-Backend/5.6.2-lambda/lambda-upload.png)
+![Upload Lambda ZIP](../../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/lambda-upload.png)
 
 Một gói ZIP thông thường có file xử lý chính `lambda_function.py` ở cấp gốc. Một số function có thể chứa thêm các module Python khác, ví dụ AdminDashboard sử dụng các module phục vụ Finance và Audit Logs.
 
@@ -157,8 +155,8 @@ Bảng sau là **cấu hình khởi đầu tham khảo** cho môi trường demo
 | `SecureTable-Kitchen` | 256 MB | 15 giây |
 | `SecureTable-Inventory` | 512 MB | 30 giây |
 | `SecureTable-AdminDashboard` | 512 MB | 30 giây |
-| `SecureTable-Report` | Theo tác vụ | Cấu hình ở 5.7 |
-| `SecureTable-Backup` | Theo tác vụ | Cấu hình ở 5.7 |
+| `SecureTable-Report` | Theo tác vụ | Cấu hình ở [5.7](../../5.7-Automation) |
+| `SecureTable-Backup` | Theo tác vụ | Cấu hình ở [5.7](../../5.7-Automation) |
 
 **Lưu ý:** Memory và Timeout không được xác định bởi file IAM Policy. Nếu Lambda báo lỗi `Task timed out` hoặc thiếu bộ nhớ, kiểm tra CloudWatch Logs và điều chỉnh cấu hình phù hợp. Với API đồng bộ, cần lưu ý giới hạn timeout phía API Gateway.
 
@@ -179,7 +177,7 @@ Lặp lại quy trình **Tạo function → Upload ZIP → Cấu hình → Tạo
 
 **Lưu ý:** Một Lambda có thể xử lý nhiều API endpoints. Ví dụ `SecureTable-Ordering` xử lý cả `POST /v1/guest/orders` và `GET /v1/guest/orders`. **Không cần tạo một Lambda cho mỗi endpoint**.
 
-Hai function **`SecureTable-Report`** và **`SecureTable-Backup`** không cần tích hợp API Gateway. Chúng được kích hoạt bằng **Amazon EventBridge Scheduler**; chúng ta sẽ cấu hình lịch chạy, SNS và backup trong mục **5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu**.
+Hai function **`SecureTable-Report`** và **`SecureTable-Backup`** không cần tích hợp API Gateway. Chúng được kích hoạt bằng **Amazon EventBridge Scheduler**; chúng ta sẽ cấu hình lịch chạy, SNS và backup trong mục [5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu](../../5.7-Automation).
 
 ## 7. Kiểm tra kết quả
 

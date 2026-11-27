@@ -1,5 +1,5 @@
 ---
-title : "Triển khai Frontend với Amazon S3 & CloudFront"
+title : "Triển khai Frontend"
 date : 2024-01-01 
 weight : 3 
 chapter : false

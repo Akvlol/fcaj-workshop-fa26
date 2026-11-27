@@ -1,5 +1,5 @@
 ---
-title : "Thiết lập cơ sở dữ liệu với Amazon DynamoDB"
+title : "Thiết lập cơ sở dữ liệu"
 date : 2024-01-01
 weight : 4
 chapter : false

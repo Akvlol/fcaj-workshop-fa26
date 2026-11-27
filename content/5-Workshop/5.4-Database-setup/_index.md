@@ -1,5 +1,5 @@
 ---
-title : "Database Setup with Amazon DynamoDB"
+title : "Database Setup"
 date : 2024-01-01
 weight : 4
 chapter : false

@@ -175,8 +175,6 @@ Lặp lại quy trình **Tạo function → Upload ZIP → Cấu hình → Tạo
 | `SecureTable-Report` | `SecureTable-Report.zip` | `SecureTable-Report.json` | Tổng hợp và gửi báo cáo qua SNS |
 | `SecureTable-Backup` | `SecureTable-Backup.zip` | `SecureTable-Backup.json` | Khởi tạo DynamoDB Export to S3 |
 
-**Lưu ý:** Một Lambda có thể xử lý nhiều API endpoints. Ví dụ `SecureTable-Ordering` xử lý cả `POST /v1/guest/orders` và `GET /v1/guest/orders`. **Không cần tạo một Lambda cho mỗi endpoint**.
-
 Hai function **`SecureTable-Report`** và **`SecureTable-Backup`** không cần tích hợp API Gateway. Chúng được kích hoạt bằng **Amazon EventBridge Scheduler**; chúng ta sẽ cấu hình lịch chạy, SNS và backup trong mục [5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu](../../5.7-Automation).
 
 ## 7. Kiểm tra kết quả

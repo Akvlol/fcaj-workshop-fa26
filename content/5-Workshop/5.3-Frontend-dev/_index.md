@@ -23,7 +23,7 @@ In this section, we will deploy the **SecureTable** frontend to **Amazon S3** an
 ## 2. Upload the Frontend
 
 1. Open the newly created bucket and select **Upload**.
-2. Upload the SecureTable frontend source code available [here](https://github.com/Akvlol/fcaj-workshop-fa26/tree/main/src_code/FrontEnd).
+2. Upload the SecureTable frontend source code available [here](https://github.com/Akvlol/SecureTable-source-code/tree/main/FrontEnd).
 3. Select **Upload** to complete the process.
 
 Place `index.html` in the **bucket root directory** so CloudFront can load the default page.

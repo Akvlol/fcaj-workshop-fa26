@@ -6,57 +6,148 @@ chapter : false
 pre : " <b> 5.6.2. </b> "
 ---
 
-Trong phần này, chúng ta sẽ triển khai các **AWS Lambda Functions** của SecureTable bằng cách tạo function trên AWS Console, tải mã nguồn có sẵn và cấp quyền **IAM Execution Role** để Lambda tương tác với Amazon DynamoDB và các dịch vụ liên quan.
+Trong phần này, chúng ta sẽ triển khai **8 AWS Lambda Functions** của SecureTable từ các gói mã nguồn được chuẩn bị trên GitHub. Mỗi function có một file ZIP chứa mã nguồn và một file JSON chứa **IAM Policy** tương ứng. Chúng ta sẽ tạo Lambda với **Execution Role mặc định**, sau đó bổ sung quyền để function có thể truy cập DynamoDB và các dịch vụ AWS cần thiết.
 
-Tất cả các function được triển khai tại **Asia Pacific (Singapore) – `ap-southeast-1`**, sử dụng **Runtime Python 3.15** và hình thức **Lambda Event Function** để kết nối với Amazon API Gateway hoặc nhận sự kiện từ EventBridge.
+Tất cả Lambda được tạo tại **Asia Pacific (Singapore) – `ap-southeast-1`**, sử dụng **Python 3.15** (`python3.15`) cho **Lambda Event Functions**.
 
-## 1. Tạo AWS Lambda Function
+## 1. Chuẩn bị Source Code trên GitHub
 
-Trước tiên, chúng ta tạo function `SecureTable-GuestServices`:
+Mã nguồn đã được đóng gói sẵn trong repository của SecureTable. Chọn liên kết dưới đây để tải source code trước khi triển khai:
 
-1. Truy cập **AWS Lambda → Functions → Create function**.
-2. Chọn **Event Function** (nếu Console yêu cầu chọn loại function), sau đó chọn **Author from scratch**.
-3. Nhập **Function name:** `SecureTable-GuestServices`.
-4. Chọn **Runtime:** `Python 3.15` (`python3.15`).
-5. Giữ **Architecture:** `x86_64`.
-6. Chọn **Create function** và đợi function được tạo thành công.
+**[Lấy source code ở đây](https://github.com/Akvlol/SecureTable-source-code/tree/main/Lambda)**
 
-![Create Lambda Function](../../../images/5-Workshop/5.6-Backend/create-lambda.png)
+<!-- Thay USERNAME/REPOSITORY bằng đường dẫn GitHub thực tế trước khi xuất bản Workshop. -->
 
-**Lưu ý:** AWS sẽ tự tạo **IAM Execution Role** cho Lambda và gắn quyền cơ bản để ghi log lên Amazon CloudWatch thông qua policy `AWSLambdaBasicExecutionRole`. Chúng ta **không cần tạo IAM Role thủ công trước**. Tuy nhiên, role này chưa có quyền đọc/ghi các bảng DynamoDB.
+Thư mục `Lambda` có cấu trúc như sau:
 
-## 2. Lấy và Upload Source Code
+```text
+Lambda/
+├── GuestServices/
+│   ├── SecureTable-GuestServices.zip
+│   └── SecureTable-GuestServices.json
+├── Ordering/
+│   ├── SecureTable-Ordering.zip
+│   └── SecureTable-Ordering.json
+├── Reception/
+│   ├── SecureTable-Reception.zip
+│   └── SecureTable-Reception.json
+├── Kitchen/
+│   ├── SecureTable-Kitchen.zip
+│   └── SecureTable-Kitchen.json
+├── Inventory/
+│   ├── SecureTable-Inventory.zip
+│   └── SecureTable-Inventory.json
+├── AdminDashboard/
+│   ├── SecureTable-AdminDashboard.zip
+│   └── SecureTable-AdminDashboard.json
+├── Report/
+│   ├── SecureTable-Report.zip
+│   └── SecureTable-Report.json
+└── Backup/
+    ├── SecureTable-Backup.zip
+    └── SecureTable-Backup.json
+```
 
-Mã nguồn backend SecureTable đã được chuẩn bị sẵn. Thay vì viết lại mã nguồn cho từng Lambda, chúng ta sẽ tải các gói triển khai từ liên kết sau:
+Trong mỗi thư mục:
 
-**[Lấy source code ở đây](https://github.com/Akvlol/fcaj-workshop-fa26/tree/main/src_code/Lambda)**
+- File **`.zip`** là gói mã nguồn dùng để upload lên AWS Lambda.
+- File **`.json`** là IAM Policy dùng để cấp quyền cho Execution Role của Lambda đó.
 
-Sau khi tải về, chọn đúng gói `.zip` tương ứng với function cần triển khai, rồi thực hiện:
+Có thể tải toàn bộ repository bằng **Code → Download ZIP** trên GitHub, sau đó giải nén repository để tìm các file bên trong thư mục `Lambda`. **Không upload file ZIP của toàn bộ repository lên Lambda**; chỉ sử dụng file `SecureTable-<FunctionName>.zip` tương ứng.
 
-1. Mở Lambda `SecureTable-GuestServices` vừa tạo.
-2. Vào tab **Code**.
-3. Chọn **Upload from → .zip file**.
-4. Chọn tệp ZIP của `SecureTable-GuestServices` và xác nhận **Save**.
-5. Kiểm tra **Runtime settings → Handler** là `lambda_function.lambda_handler`. Nếu khác, chọn **Edit** để sửa.
-6. Nếu thay đổi code bằng trình chỉnh sửa trực tiếp trên Console, chọn **Deploy** để áp dụng.
+![SecureTable Lambda Source Code](../../../images/5-Workshop/5.6-Backend/lambda-source.png)
 
-![Upload Lambda Source Code](../../../images/5-Workshop/5.6-Backend/lambda-upload.png)
+**Lưu ý:** Các file IAM Policy trong GitHub là **mẫu cấu hình**. Trước khi sử dụng, cần thay `<YOUR_ACCOUNT_ID>` bằng AWS Account ID của tài khoản đang triển khai. Các placeholder khác như `<YOUR_BACKUP_BUCKET>` cũng phải được thay bằng giá trị thực tế nếu xuất hiện trong policy.
 
-**Lưu ý:** File `lambda_function.py` và các module được import phải nằm ở đúng vị trí trong ZIP để Python có thể tải. Không upload nguyên thư mục chứa ZIP vào Lambda. Mã nguồn từng function phải tương thích với **Python 3.15**; nếu gói có thư viện ngoài hoặc Lambda Layer, cần kiểm tra phiên bản hỗ trợ trước khi triển khai.
+## 2. Tạo AWS Lambda Function
 
-## 3. Cấu hình Memory, Timeout và Environment Variables
+Chúng ta sẽ sử dụng `SecureTable-GuestServices` làm ví dụ. Các Lambda còn lại được tạo tương tự.
 
-Sau khi upload mã nguồn, chúng ta tiếp tục kiểm tra cấu hình thực thi:
+1. Truy cập **AWS Lambda → Functions → Create function** trong AWS Console.
+2. Chọn **Event Function** nếu giao diện yêu cầu chọn loại function, sau đó chọn **Author from scratch**.
+3. Nhập các thông số:
 
-1. Vào **Configuration → General configuration → Edit**.
-2. Điều chỉnh **Memory** và **Timeout** phù hợp với từng function.
-3. Chọn **Save**.
-4. Nếu mã nguồn có sử dụng biến môi trường, mở **Configuration → Environment variables → Edit** và nhập các giá trị cần thiết.
-5. Kiểm tra lại **Runtime settings** để xác nhận runtime là **Python 3.15** và Handler là `lambda_function.lambda_handler`.
+   | Cấu hình | Giá trị |
+   |---|---|
+   | **Function name** | `SecureTable-GuestServices` |
+   | **Runtime** | `Python 3.15` |
+   | **Architecture** | `x86_64` |
+   | **Execution role** | `Create a new role with basic Lambda permissions` |
+
+4. Chọn **Create function**.
+5. Đợi AWS tạo function và mở trang chi tiết của Lambda.
+
+![Create AWS Lambda](../../../images/5-Workshop/5.6-Backend/create-lambda.png)
+
+**Lưu ý:** Khi chọn **Create a new role with basic Lambda permissions**, AWS tự tạo **IAM Execution Role** và gắn quyền ghi logs lên **Amazon CloudWatch** (thông qua `AWSLambdaBasicExecutionRole`). Vì vậy, **không cần tạo IAM Role thủ công trước khi tạo Lambda**. Role này chưa có quyền truy cập DynamoDB, S3 hoặc SNS; chúng ta sẽ bổ sung quyền ở bước 4.
+
+## 3. Upload Source Code cho Lambda
+
+1. Trong repository, mở thư mục `Lambda/GuestServices`.
+2. Tải file **`SecureTable-GuestServices.zip`** về máy.
+3. Trở lại AWS Lambda `SecureTable-GuestServices`, mở tab **Code**.
+4. Chọn **Upload from → .zip file**, chọn file vừa tải và xác nhận **Save**.
+5. Tại **Runtime settings**, kiểm tra **Handler** là:
+
+   ```text
+   lambda_function.lambda_handler
+   ```
+
+6. Nếu Handler chưa đúng, chọn **Edit**, nhập giá trị trên và lưu lại.
+
+![Upload Lambda ZIP](../../../images/5-Workshop/5.6-Backend/lambda-upload.png)
+
+Một gói ZIP thông thường có file xử lý chính `lambda_function.py` ở cấp gốc. Một số function có thể chứa thêm các module Python khác, ví dụ AdminDashboard sử dụng các module phục vụ Finance và Audit Logs.
+
+**Lưu ý:** Hãy upload **nguyên file ZIP của từng Lambda**, không giải nén rồi upload từng file lên Console. Kiểm tra file `lambda_function.py` và các module được import nằm đúng vị trí trong gói ZIP. Các gói có thư viện ngoài hoặc mã được xây dựng trên runtime cũ cần được kiểm thử tương thích với Python 3.15.
+
+## 4. Cấp quyền IAM cho Execution Role mặc định
+
+Sau khi tạo Lambda, AWS đã cung cấp quyền ghi CloudWatch Logs nhưng chưa cấp quyền truy cập dữ liệu nghiệp vụ. Chúng ta sẽ sử dụng **file JSON tương ứng trên GitHub** để tạo một Inline Policy cho từng function.
+
+### 4.1. Chuẩn bị IAM Policy
+
+Với `SecureTable-GuestServices`:
+
+1. Mở file **`Lambda/GuestServices/SecureTable-GuestServices.json`** trên GitHub.
+2. Sao chép toàn bộ nội dung JSON.
+3. Tìm và thay **tất cả** giá trị `<YOUR_ACCOUNT_ID>` bằng **AWS Account ID gồm 12 chữ số** của tài khoản đang sử dụng.
+4. Kiểm tra tên bảng DynamoDB và Region trong policy trùng với tài nguyên đã tạo tại mục 5.4.
+
+Ví dụ, một ARN mẫu:
+
+```text
+arn:aws:dynamodb:ap-southeast-1:<YOUR_ACCOUNT_ID>:table/SecureTable-Bills
+```
+
+Sau khi thay placeholder, ARN phải có đúng Account ID thực tế. **IAM không tự động thay thế `<YOUR_ACCOUNT_ID>`** khi lưu policy.
+
+Đối với **`SecureTable-Backup.json`**, cần thay thêm `<YOUR_BACKUP_BUCKET>` bằng tên S3 bucket lưu backup. Đối với **`SecureTable-Report.json`**, kiểm tra ARN của SNS Topic `SecureTable-FinancialReports`; cách tạo và cấu hình các tài nguyên này sẽ được hướng dẫn trong mục **5.7**.
+
+### 4.2. Gắn Inline Policy vào Execution Role
+
+1. Mở **AWS Lambda → Functions → SecureTable-GuestServices**.
+2. Chọn **Configuration → Permissions**.
+3. Trong phần **Execution role**, chọn liên kết tên role để mở **IAM Console**.
+4. Chọn **Add permissions → Create inline policy**.
+5. Chuyển sang tab **JSON** và dán nội dung file `SecureTable-GuestServices.json` đã thay Account ID.
+6. Chọn **Next**, đặt tên policy, ví dụ `SecureTable-GuestServices-Policy`.
+7. Chọn **Create policy** và kiểm tra policy mới xuất hiện trong phần quyền của role.
+
+![Lambda IAM Execution Role](../../../images/5-Workshop/5.6-Backend/lambda-iam.png)
+
+**Lưu ý:** Chỉ gắn file JSON của function tương ứng vào Execution Role của function đó. **Không** gắn `AmazonDynamoDBFullAccess` cho tất cả Lambda. Policy `AWSLambdaDynamoDBExecutionRole` chủ yếu phục vụ việc đọc **DynamoDB Streams**, không thay thế các quyền đọc/ghi bảng trong file JSON của SecureTable.
+
+## 5. Cấu hình Memory, Timeout và Environment Variables
+
+1. Trở lại trang Lambda, chọn **Configuration → General configuration → Edit**.
+2. Điều chỉnh **Memory** và **Timeout** theo nhu cầu của function, sau đó chọn **Save**.
+3. Nếu mã nguồn yêu cầu biến môi trường, mở **Configuration → Environment variables → Edit** và nhập các giá trị tương ứng.
+4. Xác nhận **Runtime** là `Python 3.15` và **Handler** là `lambda_function.lambda_handler`.
 
 ![Lambda General Configuration](../../../images/5-Workshop/5.6-Backend/lambda-general.png)
 
-Có thể sử dụng cấu hình khởi đầu sau cho môi trường demo:
+Bảng sau là **cấu hình khởi đầu tham khảo** cho môi trường demo; cần kiểm tra lại khi triển khai thực tế:
 
 | Lambda Function | Memory tham khảo | Timeout tham khảo |
 |---|---:|---:|
@@ -66,90 +157,40 @@ Có thể sử dụng cấu hình khởi đầu sau cho môi trường demo:
 | `SecureTable-Kitchen` | 256 MB | 15 giây |
 | `SecureTable-Inventory` | 512 MB | 30 giây |
 | `SecureTable-AdminDashboard` | 512 MB | 30 giây |
-| `SecureTable-Report` | Theo tác vụ | Cấu hình tại mục [5.7](../../5.7-Automation/) |
-| `SecureTable-Backup` | Theo tác vụ | Cấu hình tại mục [5.7](../../5.7-Automation/) |
+| `SecureTable-Report` | Theo tác vụ | Cấu hình ở 5.7 |
+| `SecureTable-Backup` | Theo tác vụ | Cấu hình ở 5.7 |
 
-**Lưu ý:** Đây là các giá trị **tham khảo cho demo**, không phải cấu hình bắt buộc. Memory và Timeout cần được điều chỉnh theo thời gian chạy thực tế trong CloudWatch. Với API đồng bộ, thời gian xử lý còn bị giới hạn bởi timeout của API Gateway.
+**Lưu ý:** Memory và Timeout không được xác định bởi file IAM Policy. Nếu Lambda báo lỗi `Task timed out` hoặc thiếu bộ nhớ, kiểm tra CloudWatch Logs và điều chỉnh cấu hình phù hợp. Với API đồng bộ, cần lưu ý giới hạn timeout phía API Gateway.
 
-## 4. Bổ sung quyền IAM cho Execution Role mặc định
+## 6. Triển khai các Lambda còn lại
 
-Execution Role do AWS tự tạo ban đầu chỉ có quyền ghi CloudWatch Logs. Để function đọc/ghi dữ liệu DynamoDB, chúng ta phải bổ sung quyền cần thiết vào role này.
+Lặp lại quy trình **Tạo function → Upload ZIP → Cấu hình → Tạo IAM Inline Policy** cho đủ 8 Lambda sau:
 
-Ví dụ với `SecureTable-GuestServices`:
+| Lambda Function | File Source Code | File IAM Policy | Chức năng |
+|---|---|---|---|
+| `SecureTable-GuestServices` | `SecureTable-GuestServices.zip` | `SecureTable-GuestServices.json` | Cấp Guest Session và lấy thực đơn |
+| `SecureTable-Ordering` | `SecureTable-Ordering.zip` | `SecureTable-Ordering.json` | Đặt món, giữ nguyên liệu và xem món đã đặt |
+| `SecureTable-Reception` | `SecureTable-Reception.zip` | `SecureTable-Reception.json` | Quản lý bàn, mở và đóng bill |
+| `SecureTable-Kitchen` | `SecureTable-Kitchen.zip` | `SecureTable-Kitchen.json` | Xử lý hàng đợi, hoàn tất hoặc từ chối món |
+| `SecureTable-Inventory` | `SecureTable-Inventory.zip` | `SecureTable-Inventory.json` | Nhập kho, kiểm kê và điều chỉnh phiếu nhập |
+| `SecureTable-AdminDashboard` | `SecureTable-AdminDashboard.zip` | `SecureTable-AdminDashboard.json` | Xem Finance Dashboard và Audit Logs |
+| `SecureTable-Report` | `SecureTable-Report.zip` | `SecureTable-Report.json` | Tổng hợp và gửi báo cáo qua SNS |
+| `SecureTable-Backup` | `SecureTable-Backup.zip` | `SecureTable-Backup.json` | Khởi tạo DynamoDB Export to S3 |
 
-1. Mở Lambda → **Configuration → Permissions**.
-2. Tại **Execution role**, nhấn vào tên role để chuyển sang **IAM Console**.
-3. Chọn **Add permissions → Create inline policy**.
-4. Chuyển sang chế độ **JSON** và nhập policy phù hợp với function.
-5. Thay `<ACCOUNT_ID>` bằng AWS Account ID của tài khoản đang triển khai.
-6. Chọn **Next**, đặt tên policy (ví dụ `SecureTable-GuestServices-DynamoDB`), rồi chọn **Create policy**.
+**Lưu ý:** Một Lambda có thể xử lý nhiều API endpoints. Ví dụ `SecureTable-Ordering` xử lý cả `POST /v1/guest/orders` và `GET /v1/guest/orders`. **Không cần tạo một Lambda cho mỗi endpoint**.
 
-Ví dụ IAM Policy cho `SecureTable-GuestServices`:
+Hai function **`SecureTable-Report`** và **`SecureTable-Backup`** không cần tích hợp API Gateway. Chúng được kích hoạt bằng **Amazon EventBridge Scheduler**; chúng ta sẽ cấu hình lịch chạy, SNS và backup trong mục **5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu**.
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "ReadSessionTableAndBill",
-      "Effect": "Allow",
-      "Action": ["dynamodb:GetItem"],
-      "Resource": [
-        "arn:aws:dynamodb:ap-southeast-1:<ACCOUNT_ID>:table/SecureTable-Tables",
-        "arn:aws:dynamodb:ap-southeast-1:<ACCOUNT_ID>:table/SecureTable-Bills",
-        "arn:aws:dynamodb:ap-southeast-1:<ACCOUNT_ID>:table/SecureTable-GuestSessions",
-        "arn:aws:dynamodb:ap-southeast-1:<ACCOUNT_ID>:table/SecureTable-Ingredients"
-      ]
-    },
-    {
-      "Sid": "ReadMenu",
-      "Effect": "Allow",
-      "Action": ["dynamodb:Scan"],
-      "Resource": "arn:aws:dynamodb:ap-southeast-1:<ACCOUNT_ID>:table/SecureTable-MenuItems"
-    },
-    {
-      "Sid": "CreateGuestSession",
-      "Effect": "Allow",
-      "Action": ["dynamodb:PutItem"],
-      "Resource": "arn:aws:dynamodb:ap-southeast-1:<ACCOUNT_ID>:table/SecureTable-GuestSessions"
-    }
-  ]
-}
-```
+## 7. Kiểm tra kết quả
 
-![Lambda Execution Role Permissions](../../../images/5-Workshop/5.6-Backend/lambda-iam.png)
+1. Vào **AWS Lambda → Functions**, xác nhận đã tạo đủ **8 Lambda Functions** và tên của chúng khớp với bảng trên.
+2. Mở từng function, xác nhận mã nguồn ZIP được upload đúng, **Runtime là Python 3.15** và **Handler là `lambda_function.lambda_handler`**.
+3. Vào **Configuration → Permissions**, xác nhận function có Execution Role và Inline Policy tương ứng, đồng thời vẫn có quyền ghi CloudWatch Logs.
+4. Kiểm tra các placeholder trong JSON đã được thay đầy đủ, đặc biệt là Account ID, tên S3 bucket và SNS Topic.
+5. Có thể sử dụng **Test** với event phù hợp để kiểm tra lỗi cú pháp, import hoặc cấu hình, sau đó xem **Monitor → View CloudWatch logs** khi function được gọi.
 
-**Lưu ý:** Mỗi Lambda cần **IAM Policy riêng**, chỉ cấp quyền đối với bảng và hành động mà mã nguồn thực sự sử dụng. Không gắn `AmazonDynamoDBFullAccess` cho tất cả các Lambda. Đối với transaction, role phải có các quyền DynamoDB tương ứng với thao tác bên trong transaction; nếu truy vấn qua GSI, cần xét thêm ARN của index.
+![List of SecureTable Lambda Functions](../../../images/5-Workshop/5.6-Backend/lambda-list.png)
 
-## 5. Triển khai các Lambda còn lại
+**Lưu ý:** Các API Staff yêu cầu token Cognito và các API Guest yêu cầu Guest Session Token hợp lệ. Một event Test giả lập trực tiếp trên Lambda **không chứng minh được** rằng Cognito Authorizer hoặc API Gateway đã cấu hình đúng. Việc tích hợp và kiểm thử API sẽ được thực hiện tại **5.6.3 – Tích hợp Lambda với Amazon API Gateway**.
 
-Lặp lại quy trình **Create function → Upload ZIP → Cấu hình → Bổ sung IAM Policy** cho các Lambda còn lại:
-
-| Lambda Function | Chức năng |
-|---|---|
-| `SecureTable-GuestServices` | Tạo Guest Session và cung cấp thực đơn |
-| `SecureTable-Ordering` | Nhận đơn và cho Customer xem lại món đã đặt |
-| `SecureTable-Reception` | Quản lý bàn, mở và đóng bill |
-| `SecureTable-Kitchen` | Xem hàng đợi, hoàn tất hoặc từ chối món |
-| `SecureTable-Inventory` | Nhập kho, xem lịch sử và điều chỉnh phiếu |
-| `SecureTable-AdminDashboard` | Truy xuất dữ liệu tài chính và Audit Logs |
-| `SecureTable-Report` | Tổng hợp và gửi báo cáo tự động |
-| `SecureTable-Backup` | Khởi tạo sao lưu DynamoDB sang S3 |
-
-**Lưu ý:** Một Lambda có thể xử lý **nhiều API endpoints**. Ví dụ, `SecureTable-GuestServices` dùng chung cho `POST /v1/guest/sessions` và `GET /v1/guest/menu`; `SecureTable-Ordering` xử lý cả `POST` và `GET /v1/guest/orders`. Không cần tạo riêng một Lambda cho từng HTTP Method.
-
-Các Lambda `SecureTable-Report` và `SecureTable-Backup` **không cần gắn API Gateway**, vì chúng nhận sự kiện từ lịch tự động; phần kích hoạt và quyền liên quan tới SNS/S3 được trình bày ở mục **5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu**.
-
-## 6. Kiểm tra kết quả
-
-1. Truy cập **AWS Lambda → Functions**, xác nhận đã tạo đủ các function cần thiết.
-2. Mở từng function, kiểm tra **Runtime: Python 3.15** và **Handler: `lambda_function.lambda_handler`**.
-3. Vào **Configuration → Permissions**, xác nhận Execution Role đã được bổ sung quyền truy cập đúng các DynamoDB Tables cần dùng.
-4. Vào **Monitor → View CloudWatch logs** để theo dõi lỗi khi Lambda được gọi.
-5. Có thể sử dụng tab **Test** với event mẫu để kiểm tra lỗi cú pháp, import và cấu hình. Những API yêu cầu session/token phải có dữ liệu xác thực hợp lệ mới kiểm tra được đầy đủ.
-
-![Lambda Functions List](../../../images/5-Workshop/5.6-Backend/lambda-list.png)
-
-**Lưu ý:** Tạo event Test giả lập trên Lambda Console **không thay thế** kiểm thử Cognito Authorizer hoặc API Gateway thực tế. Chúng ta sẽ kết nối endpoint và kiểm thử request qua API Gateway trong **5.6.3 – Tích hợp Lambda với Amazon API Gateway**.
-
-Sau khi hoàn thành, các AWS Lambda Functions đã được triển khai với **Python 3.15**, sử dụng **Execution Role mặc định được bổ sung IAM Policy theo chức năng**, và sẵn sàng để tích hợp với Amazon API Gateway.
+Sau khi hoàn thành, **8 Lambda của SecureTable** đã được triển khai từ các file ZIP trên GitHub, sử dụng **Python 3.15** và **Execution Role mặc định với IAM Policy riêng theo chức năng**, sẵn sàng kết nối với API Gateway hoặc các tác vụ tự động.

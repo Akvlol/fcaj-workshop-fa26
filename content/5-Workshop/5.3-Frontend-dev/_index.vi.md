@@ -23,7 +23,7 @@ Trong phần này, chúng ta sẽ triển khai giao diện **SecureTable** lên 
 ## 2. Upload Frontend
 
 1. Mở bucket vừa tạo và chọn **Upload**.
-2. Upload mã nguồn frontend của SecureTable [tại đây](https://github.com/Akvlol/fcaj-workshop-fa26/tree/main/src_code/FrontEnd).
+2. Upload mã nguồn frontend của SecureTable [tại đây](https://github.com/Akvlol/SecureTable-source-code/tree/main/FrontEnd).
 3. Chọn **Upload** để hoàn tất.
 
 Đặt `index.html` tại **thư mục gốc của bucket** để CloudFront có thể tải trang mặc định.

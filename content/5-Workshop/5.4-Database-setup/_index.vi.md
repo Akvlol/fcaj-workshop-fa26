@@ -20,7 +20,7 @@ Chúng ta sẽ tạo bảng `SecureTable-Tables`:
 5. Giữ **Default settings** (**Capacity mode** mặc định là **On-demand**)
 6. Chọn **Create table** và đợi trạng thái chuyển sang **Active**.
 
-![DynamoDB Table Setup](../../../images/5-Workshop/5.4-DynamoDB/create-table.png)
+![DynamoDB Table Setup](../../../images/5-Workshop/5.4-Database-setup/create-table.png)
 
 **Lưu ý:** `Partition key` và `Sort key` phải trùng **tên và kiểu dữ liệu** mà Lambda sử dụng. Không được tự ý đổi `table_id` thành `id`, vì backend sẽ không tìm được dữ liệu.
 
@@ -49,7 +49,7 @@ Thực hiện tương tự bước trên cho các bảng của SecureTable. Dư�
 
 Tất cả các khóa trên sử dụng kiểu **String**. Hệ thống còn sử dụng `SecureTable-ReportDispatch` để ghi nhận trạng thái gửi báo cáo và `SecureTable-NotificationOutbox` cho các sự kiện thông báo. Hai bảng phụ này phải được tạo theo khóa mà mã nguồn Lambda tương ứng sử dụng trước khi kích hoạt chức năng đó.
 
-![DynamoDB Tables](../../../images/5-Workshop/5.4-DynamoDB/table-list.png)
+![DynamoDB Tables](../../../images/5-Workshop/5.4-Database-setup/table-list.png)
 
 **Lưu ý:**
 - **13 bảng đầu tiên** là phạm vi sao lưu định kỳ của SecureTable; các bảng phiên truy cập và trạng thái xử lý tạm thời không nằm trong danh sách backup này.
@@ -64,7 +64,7 @@ SecureTable sử dụng TTL để tự động dọn dẹp dữ liệu tạm th�
 2. Trong phần **Additional settings**, tìm **Time to Live (TTL)** và chọn **Turn on**.
 3. Nhập **TTL attribute name:** `expires_at`, sau đó lưu.
 
-![TTL Configuration](../../../images/5-Workshop/5.4-DynamoDB/ttl-config.png)
+![TTL Configuration](../../../images/5-Workshop/5.4-Database-setup/ttl-config.png)
 
 4. Thực hiện tương tự với bảng **`SecureTable-Idempotency`**, sử dụng thuộc tính `ttl`.
 
@@ -95,9 +95,9 @@ SecureTable sử dụng TTL để tự động dọn dẹp dữ liệu tạm th�
 4. Chọn **Create item** rồi lặp lại với `T02`, `T03`, ... theo số bàn của nhà hàng.
 5. Thêm dữ liệu thực đơn và nguyên liệu vào **`SecureTable-MenuItems`** và **`SecureTable-Ingredients`**
 
-![Table Items](../../../images/5-Workshop/5.4-DynamoDB/item-table.png)
-![Menu Items](../../../images/5-Workshop/5.4-DynamoDB/item-menu.png)
-![Ingredients](../../../images/5-Workshop/5.4-DynamoDB/item-ingre.png)
+![Table Items](../../../images/5-Workshop/5.4-Database-setup/item-table.png)
+![Menu Items](../../../images/5-Workshop/5.4-Database-setup/item-menu.png)
+![Ingredients](../../../images/5-Workshop/5.4-Database-setup/item-ingre.png)
 
 **Lưu ý:** Khi nhập item bằng **DynamoDB JSON**, dữ liệu có cú pháp khác JSON thông thường. Hãy chọn đúng chế độ nhập trong Console. Tên `dish_id` và `ingredient_id` trong menu/recipe phải khớp với dữ liệu nguyên liệu.
 

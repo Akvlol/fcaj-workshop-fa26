@@ -50,8 +50,8 @@ CloudFront cấp một domain có dạng `dxxxxxxxxxxxxx.cloudfront.net`. Đây 
 
 **Lưu ý:**
 - **AWS Free Plan 6 tháng** và **CloudFront Free Plan** là hai chương trình khác nhau. Kiểm tra distribution đang sử dụng đúng CloudFront Free Plan để bảo đảm các tính năng nằm trong phạm vi miễn phí.
-- **AWS WAF** đã được bật cho CloudFront; phần cấu hình và giám sát WAF sẽ được trình bày tại [5.8 – Security Hardening & System Monitoring](5.8-Security/).
-- Nếu không tạo được distribution do yêu cầu xác minh tài khoản, thực hiện theo [5.2 – Prerequisites](5.2-Prerequisite).
+- **AWS WAF** đã được bật cho CloudFront; phần cấu hình và giám sát WAF sẽ được trình bày tại [5.8 – Security Hardening & System Monitoring](../5.8-Security/).
+- Nếu không tạo được distribution do yêu cầu xác minh tài khoản, thực hiện theo [5.2 – Prerequisites](../5.2-Prerequisite).
 
 ## 4. Kiểm tra Website
 

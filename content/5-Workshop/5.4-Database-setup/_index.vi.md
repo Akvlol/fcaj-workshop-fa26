@@ -116,6 +116,6 @@ SecureTable sử dụng TTL để tự động dọn dẹp dữ liệu tạm th�
 3. Kiểm tra **Capacity mode** của các bảng là **On-demand**.
 4. Xác nhận **TTL** đã bật cho các bảng phiên và chống gửi request trùng.
 
-**Lưu ý:** **Point-in-Time Recovery (PITR)** cần được bật cho 13 bảng thuộc phạm vi xuất dữ liệu sang S3. Chúng ta sẽ cấu hình và kiểm tra PITR tại [5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu](5.7-Automation). PITR có chi phí riêng, kể cả khi chưa chạy tác vụ export.
+**Lưu ý:** **Point-in-Time Recovery (PITR)** cần được bật cho 13 bảng thuộc phạm vi xuất dữ liệu sang S3. Chúng ta sẽ cấu hình và kiểm tra PITR tại [5.7 – Tự động hóa Báo cáo & Sao lưu dữ liệu](../5.7-Automation). PITR có chi phí riêng, kể cả khi chưa chạy tác vụ export.
 
-Sau khi hoàn thành, cơ sở dữ liệu đã sẵn sàng để kết nối với Lambda trong [5.6 – Xây dựng Backend với AWS Lambda & API Gateway](5.6-Backend-dev).
+Sau khi hoàn thành, cơ sở dữ liệu đã sẵn sàng để kết nối với Lambda trong [5.6 – Xây dựng Backend với AWS Lambda & API Gateway](../5.6-Backend-dev).

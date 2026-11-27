@@ -16,8 +16,6 @@ Mã nguồn đã được đóng gói sẵn trong repository của SecureTable. 
 
 **[Lấy source code ở đây](https://github.com/Akvlol/SecureTable-source-code/tree/main/Lambda)**
 
-<!-- Thay USERNAME/REPOSITORY bằng đường dẫn GitHub thực tế trước khi xuất bản Workshop. -->
-
 Thư mục `Lambda` có cấu trúc như sau:
 
 ```text

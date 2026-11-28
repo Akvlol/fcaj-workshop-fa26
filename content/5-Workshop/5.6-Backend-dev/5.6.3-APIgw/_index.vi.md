@@ -122,7 +122,7 @@ Ví dụ URL đầy đủ để gọi Guest Session:
 https://<api-id>.execute-api.ap-southeast-1.amazonaws.com/dev/v1/guest/sessions
 ```
 
-![Deploy API](../../../../images/5-Workshop/5.6-Backend/5.6.3-APIgw/deploy-api.png)
+![Deploy API](../../../../images/5-Workshop/5.6-Backend/5.6.3-APIgw/deply-api.png)
 
 **Lưu ý:** `dev` là **Stage**, còn `v1` là **Resource**. Mỗi lần tạo/sửa Method, Integration hoặc Authorization trong REST API, cần **Deploy API lại vào stage `dev`** để thay đổi có hiệu lực. Nếu chưa deploy, người dùng có thể vẫn gọi phiên bản API cũ.
 

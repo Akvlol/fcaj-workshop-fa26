@@ -38,8 +38,8 @@ After consolidating functions that handle related business operations, SecureTab
 
 We will proceed through three sections:
 
-1. [5.6.1 – Backend Overview & API Design](5.6-Backend-dev/5.6.1-Overview): Identify the endpoints required by Guests and Staff, their HTTP methods, and the Lambda functions that handle them.
-2. [5.6.2 – Creating and Configuring AWS Lambda Functions](5.6-Backend-dev/5.6.2-Lambda): Create functions, upload source code, configure runtimes, and assign IAM Execution Roles.
-3. [5.6.3 – Integrating Lambda with Amazon API Gateway](5.6-Backend-dev/5.6.3-APIgw): Create a REST API, configure Lambda proxy integration, enable the Cognito Authorizer, and configure CloudFront so the frontend can call the API.
+1. [5.6.1 – Backend Overview & API Design](5.6.1-Overview): Identify the endpoints required by Guests and Staff, their HTTP methods, and the Lambda functions that handle them.
+2. [5.6.2 – Creating and Configuring AWS Lambda Functions](5.6.2-Lambda): Create functions, upload source code, configure runtimes, and assign IAM Execution Roles.
+3. [5.6.3 – Integrating Lambda with Amazon API Gateway](5.6.3-APIgw): Create a REST API, configure Lambda proxy integration, enable the Cognito Authorizer, and configure CloudFront so the frontend can call the API.
 
 **Note:** DynamoDB tables must be created with the correct names and keys in Section 5.4 before testing the Lambda functions. In addition, the frontend can call the API only after API Gateway has been deployed and the `/v1/*` CloudFront behavior has been configured correctly.

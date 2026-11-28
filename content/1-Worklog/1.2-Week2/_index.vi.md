@@ -1,6 +1,6 @@
 ---
 title: "Worklog Tuần 2"
-date: 2024-09-25
+date: 2026-09-25
 weight: 1
 chapter: false
 pre: " <b> 1.2. </b> "
@@ -9,7 +9,7 @@ pre: " <b> 1.2. </b> "
 ### Mục tiêu tuần 2:
 
 * Thành lập team làm dự án, lên kế hoạch cho dự án
-- Tiếp tục học và làm quen với AWS qua web [Skill Builder](https://skillbuilder.aws/)
+* Tiếp tục học và làm quen với AWS qua web [Skill Builder](https://skillbuilder.aws/)
 
 ### Các công việc đã làm trong tuần:
 | Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |

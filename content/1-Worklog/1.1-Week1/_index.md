@@ -11,7 +11,7 @@ pre: " <b> 1.1. </b> "
 * Connect and get acquainted with other members of the First Cloud AI Journey (FCAJ) program.
 * Understand the fundamental concepts of Cloud Computing and AWS services.
 
-### Tasks to be completed this week:
+### Tasks Completed During the Week:
 
 | Day | Tasks | Start Date | Completion Date | References |
 | --- | --- | --- | --- | --- |

@@ -178,11 +178,12 @@ The **`SecureTable-Report`** and **`SecureTable-Backup`** functions do not need 
 ## 7. Verify the Results
 
 1. Open **AWS Lambda → Functions** and confirm that all **8 Lambda Functions** have been created and that their names match the table above.
+
+![List of SecureTable Lambda Functions](../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/lambda-list.png)
+
 2. Open each function and verify that the correct ZIP package was uploaded, the **Runtime is Python 3.15**, and the **Handler is `lambda_function.lambda_handler`**.
 3. Under **Configuration → Permissions**, verify that each function has an Execution Role and its corresponding Inline Policy, while retaining permissions to write CloudWatch Logs.
 4. Confirm that all placeholders in the JSON files have been replaced, especially the Account ID, S3 bucket name, and SNS Topic.
 5. You can use **Test** with an appropriate event to check for syntax, import, or configuration errors, then open **Monitor → View CloudWatch logs** when the function is invoked.
-
-![List of SecureTable Lambda Functions](../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/lambda-list.png)
 
 Once these steps are complete, all **8 SecureTable Lambda Functions** have been deployed using the ZIP files from GitHub, with **Python 3.15** and **default Execution Roles extended by function-specific IAM Policies**, ready to connect to API Gateway or scheduled tasks.

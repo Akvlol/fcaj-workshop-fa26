@@ -1,5 +1,5 @@
 ---
-title : "Backend Development with AWS Lambda & API Gateway"
+title : "Backend Development"
 date : 2024-01-01
 weight : 6
 chapter : false

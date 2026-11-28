@@ -178,11 +178,12 @@ Hai function **`SecureTable-Report`** và **`SecureTable-Backup`** không cần 
 ## 7. Kiểm tra kết quả
 
 1. Vào **AWS Lambda → Functions**, xác nhận đã tạo đủ **8 Lambda Functions** và tên của chúng khớp với bảng trên.
+
+![List of SecureTable Lambda Functions](../../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/lambda-list.png)
+
 2. Mở từng function, xác nhận mã nguồn ZIP được upload đúng, **Runtime là Python 3.15** và **Handler là `lambda_function.lambda_handler`**.
 3. Vào **Configuration → Permissions**, xác nhận function có Execution Role và Inline Policy tương ứng, đồng thời vẫn có quyền ghi CloudWatch Logs.
 4. Kiểm tra các placeholder trong JSON đã được thay đầy đủ, đặc biệt là Account ID, tên S3 bucket và SNS Topic.
 5. Có thể sử dụng **Test** với event phù hợp để kiểm tra lỗi cú pháp, import hoặc cấu hình, sau đó xem **Monitor → View CloudWatch logs** khi function được gọi.
-
-![List of SecureTable Lambda Functions](../../../../images/5-Workshop/5.6-Backend/5.6.2-Lambda/lambda-list.png)
 
 Sau khi hoàn thành, **8 Lambda của SecureTable** đã được triển khai từ các file ZIP trên GitHub, sử dụng **Python 3.15** và **Execution Role mặc định với IAM Policy riêng theo chức năng**, sẵn sàng kết nối với API Gateway hoặc các tác vụ tự động.

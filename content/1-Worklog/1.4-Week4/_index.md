@@ -1,57 +1,33 @@
 ---
 title: "Week 4 Worklog"
-date: 2024-01-01
+date: 2026-10-09
 weight: 1
 chapter: false
 pre: " <b> 1.4. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
-
 
 ### Week 4 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Learn about AWS security, monitoring, and resource management services.
+* Finalize the architecture, service list, and API endpoints for the project.
+* Explore AWS Free Tier and AWS account security methods.
+* Complete the first hands-on labs.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks completed this week:
 
+| Day | Tasks | Start Date | Completion Date | References |
+| --- | --- | --- | --- | --- |
+| 2 | - Learn about security services: IAM (Identity and Access Management), Secrets Manager, KMS (Key Management Service), WAF (Web Application Firewall), etc. <br> - Explore threat detection, vulnerability assessment, and security investigation services: GuardDuty, Inspector, Detective, etc. | 05/10/2026 | 05/10/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 3 | - Learn about: <br> + CloudTrail: Tracking AWS account activities and API calls <br> + CloudWatch: Monitoring AWS resources <br> + AWS Organizations: Centralized management and governance of AWS accounts <br> + Trusted Advisor: Evaluating the AWS environment and providing recommendations for performance and cost optimization, etc. | 06/10/2026 | 06/10/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 4 | - Research and create a list of API endpoints for the project <br> - Revise the architecture <br> - Finalize the list of AWS services to be used | 07/10/2026 | 07/10/2026 | |
+| 5 | - Complete tasks to earn an additional $100 in AWS credits <br> - Enable MFA for the AWS account <br> - Explore the AWS Free Tier plan | 08/10/2026 | 08/10/2026 | <https://000001.awsstudygroup.com/> |
+| 6 | - Create an IAM user with administrator permissions and another user with minimum operational permissions <br> - Sign in and test the assigned permissions | 09/10/2026 | 09/10/2026 | <https://000002.awsstudygroup.com/> |
 
 ### Week 4 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Understood the fundamental functions of AWS security services such as IAM, Secrets Manager, KMS, and WAF.
+* Understood the roles of GuardDuty, Inspector, and Detective in detecting and analyzing security threats and vulnerabilities.
+* Understood the purposes of CloudTrail, CloudWatch, AWS Organizations, and Trusted Advisor.
+* Finalized the architecture, API endpoint list, and AWS services used in the project.
+* Gained a better understanding of AWS Free Tier, completed tasks to earn additional AWS credits, and enabled MFA for the AWS account.
+* Learned how to create IAM users, assign permissions, and verify access permissions following the Principle of Least Privilege.

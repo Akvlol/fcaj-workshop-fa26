@@ -15,7 +15,7 @@ pre: " <b> 1.1. </b> "
 
 | Day | Tasks | Start Date | Completion Date | References |
 | --- | --- | --- | --- | --- |
-| 2 | - Get acquainted with other members of the program <br> - Read the program guidelines and regulations | 14/09/2026 | 14/09/2026 | |
+| 2 | - Get acquainted with other members of the program <br> - Read the program guidelines and regulations <br> - Create the first AWS account | 14/09/2026 | 14/09/2026 | |
 | 3 | - Learn about Cloud Computing and the AWS Shared Responsibility Model | 15/09/2026 | 15/09/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 | 4 | - Learn about the concepts and characteristics of Amazon EC2 <br> - Understand the differences between EC2 pricing models (On-Demand, Reserved Instances, Spot Instances) | 16/09/2026 | 16/09/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 | 5 | - Learn the fundamentals of Amazon SNS and Amazon SQS <br> - Explore the concept of Serverless Computing <br> - Learn about AWS Lambda | 17/09/2026 | 17/09/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |

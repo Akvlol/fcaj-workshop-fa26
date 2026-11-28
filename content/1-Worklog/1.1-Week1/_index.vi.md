@@ -14,7 +14,7 @@ pre: " <b> 1.1. </b> "
 ### Các công việc đã làm trong tuần:
 | Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên trong cùng chương trình <br> - Đọc hướng dẫn và nội quy của chương trình  | 14/09/2026   | 14/09/2026      |
+| 2   | - Làm quen với các thành viên trong cùng chương trình <br> - Đọc hướng dẫn và nội quy của chương trình <br> - Tạo tài khoản AWS đầu tiên | 14/09/2026   | 14/09/2026      |
 | 3   | - Tìm hiểu về khái niệm Điện Toán Đám Mây (Cloud Computing) và mô hình chia sẻ trách nhiệm của AWS      | 15/09/2026   | 15/09/2026      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 | 4   | - Học về khái niệm và các đặc tính của EC2 <br> - Sự khác biệt giữa các loại mô hình tính phí (pricing models) cho EC2 instance (On-Demand, Reserved Instances, Spot Instances)  | 16/09/2026   | 16/09/2026      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 | 5   | - Hiểu cơ bản về Amazon SNS và Amazon SQS <br> - Tìm hiểu khái niệm serverless <br> - Tìm hiểu AWS Lambda    | 17/09/2026   | 17/09/2026      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |

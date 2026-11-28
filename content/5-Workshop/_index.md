@@ -29,12 +29,15 @@ By the end of this workshop, we will have a working SecureTable system deployed 
 
 The workshop also covers testing, monitoring, and resource optimization based on the principles of the **AWS Well-Architected Framework**.
 
+#### Contents
 
-#### Content
-
-1. [System Overview & Architecture](5.1-System-overview-architecture)
-2. [Prerequiste](5.2-Prerequiste/)
-3. [Access S3 from VPC](5.3-S3-vpc/)
-4. [Access S3 from On-premises](5.4-S3-onprem/)
-5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
-6. [Clean up](5.6-Cleanup/)
+1. [System Overview & Architecture](5.1-System-overview/)
+2. [Prerequisites](5.2-Prerequisite/)
+3. [Frontend Deployment](5.3-Frontend-dev/)
+4. [Database Setup](5.4-Database-setup/)
+5. [Authentication & Authorization](5.5-Auth/)
+6. [Backend Development](5.6-Backend-dev/)
+7. [Automated Reporting & Data Backup](5.7-Automation/)
+8. [Security Hardening & System Monitoring](5.8-Security/)
+9. [End-to-End System Testing](5.9-E2E-testing/)
+10. [Resource Cleanup](5.10-Cleanup/)

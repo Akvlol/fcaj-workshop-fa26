@@ -11,7 +11,7 @@ pre: " <b> 1.1. </b> "
 * Kết nối, làm quen với các thành viên trong chương trình First Cloud AI Journey (FCAJ).
 * Hiểu các khái niệm cơ bản về Cloud nói chung và các dịch vụ của AWS
 
-### Các công việc cần triển khai trong tuần này:
+### Các công việc đã làm trong tuần:
 | Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
 | 2   | - Làm quen với các thành viên trong cùng chương trình <br> - Đọc hướng dẫn và nội quy của chương trình  | 14/09/2026   | 14/09/2026      |

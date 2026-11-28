@@ -18,38 +18,14 @@ pre: " <b> 1.1. </b> "
 | 3   | - Tìm hiểu về khái niệm Điện Toán Đám Mây (Cloud Computing) và mô hình chia sẻ trách nhiệm của AWS      | 15/09/2026   | 15/09/2026      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 | 4   | - Học về khái niệm và các đặc tính của EC2 <br> - Sự khác biệt giữa các loại mô hình tính phí (pricing models) cho EC2 instance (On-Demand, Reserved Instances, Spot Instances)  | 16/09/2026   | 16/09/2026      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 | 5   | - Hiểu cơ bản về Amazon SNS và Amazon SQS <br> - Tìm hiểu khái niệm serverless <br> - Tìm hiểu AWS Lambda    | 17/09/2026   | 17/09/2026      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
-| 6   | - Tìm hiểu khái niệm container và các dịch vụ như ECR, Fargate, Beanstalk     | 18/09/2026   | 18/09/2026      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
-
+| 6   | - Tìm hiểu khái niệm container và các dịch vụ : ECR, Fargate, Beanstalk     | 18/09/2026   | 18/09/2026      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 
 ### Kết quả đạt được tuần 1:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
+* Làm quen với các thành viên và nắm được nội quy của chương trình FCAJ.
+* Hiểu các khái niệm cơ bản về Điện toán đám mây và mô hình chia sẻ trách nhiệm của AWS.
+* Nắm được kiến thức về Amazon EC2 và phân biệt các mô hình tính phí On-Demand, Reserved Instances và Spot Instances.
+* Hiểu chức năng và sự khác biệt giữa Amazon SNS và Amazon SQS.
+* Nắm được khái niệm Serverless và cách thức hoạt động cơ bản của AWS Lambda.
+* Hiểu khái niệm Container và mục đích sử dụng của Amazon ECR, AWS Fargate và AWS Elastic Beanstalk.
 

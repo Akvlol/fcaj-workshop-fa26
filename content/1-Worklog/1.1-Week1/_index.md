@@ -1,58 +1,31 @@
 ---
 title: "Week 1 Worklog"
-date: 2024-09-18
+date: 2026-09-18
 weight: 1
 chapter: false
 pre: " <b> 1.1. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
-
 
 ### Week 1 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Connect and get acquainted with other members of the First Cloud AI Journey (FCAJ) program.
+* Understand the fundamental concepts of Cloud Computing and AWS services.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | -                                            | 14/09/2026   | 14/09/2026      |
-| 3   | -                                            | 15/09/2025   | 15/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
-| 4   | -                                            | 16/09/2025   | 16/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
-| 5   | -                                            | 17/09/2025   | 17/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
-| 6   | -                                            | 18/09/2025   | 18/09/2025      | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+### Tasks to be completed this week:
 
-
+| Day | Tasks | Start Date | Completion Date | References |
+| --- | --- | --- | --- | --- |
+| 2 | - Get acquainted with other members of the program <br> - Read the program guidelines and regulations | 14/09/2026 | 14/09/2026 | |
+| 3 | - Learn about Cloud Computing and the AWS Shared Responsibility Model | 15/09/2026 | 15/09/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 4 | - Learn about the concepts and characteristics of Amazon EC2 <br> - Understand the differences between EC2 pricing models (On-Demand, Reserved Instances, Spot Instances) | 16/09/2026 | 16/09/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 5 | - Learn the fundamentals of Amazon SNS and Amazon SQS <br> - Explore the concept of Serverless Computing <br> - Learn about AWS Lambda | 17/09/2026 | 17/09/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
+| 6 | - Learn about containers and related AWS services: Amazon ECR, AWS Fargate, and AWS Elastic Beanstalk | 18/09/2026 | 18/09/2026 | <https://skillbuilder.aws/learn/94T2BEN85A/aws-cloud-practitioner-essentials/> |
 
 ### Week 1 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Connected with other members and became familiar with the FCAJ program regulations.
+* Understood the fundamental concepts of Cloud Computing and the AWS Shared Responsibility Model.
+* Gained foundational knowledge of Amazon EC2 and distinguished between On-Demand, Reserved Instances, and Spot Instances pricing models.
+* Understood the functions and differences between Amazon SNS and Amazon SQS.
+* Understood the concept of Serverless Computing and the basic operating principles of AWS Lambda.
+* Understood container concepts and the purposes of Amazon ECR, AWS Fargate, and AWS Elastic Beanstalk.
